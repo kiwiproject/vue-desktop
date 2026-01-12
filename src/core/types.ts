@@ -37,3 +37,5 @@ export interface WindowDefinition<Props = unknown> {
 }
 
 export type WindowId = string;
+
+export type WindowMode = "normal" | "minimized" | "maximized";

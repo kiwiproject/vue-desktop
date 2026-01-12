@@ -39,6 +39,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
    - Implement modes (minimized, maximized, normal) and persistence hooks.
    - Add plugin events to notify status changes.
 
+    Status: implemented (2026-01-12) — Added `WindowMode` type, mode tracking in DesktopInstance (`getMode`, `minimizeWindow`, `maximizeWindow`, `restoreWindow`). WindowShell has minimize/maximize/restore buttons, double-click header to toggle maximize. WindowHost tracks viewport for maximized bounds, hides minimized windows. Tests added in `tests/window-mode.test.ts`.
+
 9. feat(keyboard): add keyboard shortcuts and focus keyboard handling
    - Provide keyboard navigation for windows (e.g., Alt+Tab style) and shortcuts API.
 

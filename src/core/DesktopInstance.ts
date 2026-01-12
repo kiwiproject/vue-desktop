@@ -1,5 +1,5 @@
 import { shallowRef, provide, inject, triggerRef, type InjectionKey, type ShallowRef } from "vue";
-import { WindowDefinition, Bounds } from "./types";
+import { WindowDefinition, Bounds, WindowMode } from "./types";
 
 type Listener = (payload?: unknown) => void;
 
@@ -9,12 +9,15 @@ export class DesktopInstance {
   private _windows: ShallowRef<WindowDefinition[]>;
   private _zOrder: ShallowRef<string[]>;
   private _bounds: ShallowRef<Map<string, Bounds>>;
+  private _modes: ShallowRef<Map<string, WindowMode>>;
+  private _restoreBounds: Map<string, Bounds> = new Map();
   private _listeners: Map<string, Listener[]> = new Map();
 
   constructor() {
     this._windows = shallowRef([]);
     this._zOrder = shallowRef([]);
     this._bounds = shallowRef(new Map());
+    this._modes = shallowRef(new Map());
   }
 
   get windows(): WindowDefinition[] {
@@ -79,6 +82,49 @@ export class DesktopInstance {
     this._bounds.value.set(id, bounds);
     triggerRef(this._bounds);
     this.emit("window-bounds-changed", { id, bounds, oldBounds });
+    return true;
+  }
+
+  getMode(id: string): WindowMode {
+    return this._modes.value.get(id) ?? "normal";
+  }
+
+  minimizeWindow(id: string) {
+    const win = this.getWindow(id);
+    if (!win) return false;
+    this._modes.value.set(id, "minimized");
+    triggerRef(this._modes);
+    this.emit("window-minimized", { id });
+    return true;
+  }
+
+  maximizeWindow(id: string) {
+    const win = this.getWindow(id);
+    if (!win) return false;
+    const currentMode = this.getMode(id);
+    if (currentMode === "normal") {
+      const currentBounds = this.getBounds(id);
+      if (currentBounds) {
+        this._restoreBounds.set(id, currentBounds);
+      }
+    }
+    this._modes.value.set(id, "maximized");
+    triggerRef(this._modes);
+    this.emit("window-maximized", { id });
+    return true;
+  }
+
+  restoreWindow(id: string) {
+    const win = this.getWindow(id);
+    if (!win) return false;
+    const restoreBounds = this._restoreBounds.get(id);
+    if (restoreBounds) {
+      this._bounds.value.set(id, restoreBounds);
+      triggerRef(this._bounds);
+    }
+    this._modes.value.set(id, "normal");
+    triggerRef(this._modes);
+    this.emit("window-restored", { id });
     return true;
   }
 

@@ -1,5 +1,5 @@
 import { defineComponent, h, ref, onUnmounted, type PropType } from "vue";
-import type { Bounds, WindowBehaviors, WindowConstraints } from "./types";
+import type { Bounds, WindowBehaviors, WindowConstraints, WindowMode } from "./types";
 import { calcResize, type ResizeDirection } from "./bounds";
 
 const RESIZE_DIRECTIONS: ResizeDirection[] = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
@@ -12,18 +12,21 @@ export default defineComponent({
     bounds: { type: Object as PropType<Bounds>, required: true },
     behaviors: { type: Object as PropType<WindowBehaviors>, default: () => ({}) },
     constraints: { type: Object as PropType<WindowConstraints>, default: () => ({}) },
+    mode: { type: String as PropType<WindowMode>, default: "normal" },
     zIndex: { type: Number, default: 100 }
   },
-  emits: ["close", "focus", "updateBounds"],
+  emits: ["close", "focus", "updateBounds", "minimize", "maximize", "restore"],
   setup(props, { slots, emit }) {
     const isDragging = ref(false);
     const isResizing = ref(false);
     const dragStart = ref({ x: 0, y: 0, bounds: { x: 0, y: 0, width: 0, height: 0 } });
     const resizeDir = ref<ResizeDirection>("se");
 
-    const movable = () => props.behaviors?.movable !== false;
-    const resizable = () => props.behaviors?.resizable !== false;
+    const movable = () => props.behaviors?.movable !== false && props.mode !== "maximized";
+    const resizable = () => props.behaviors?.resizable !== false && props.mode !== "maximized";
     const closable = () => props.behaviors?.closable !== false;
+    const minimizable = () => props.behaviors?.minimizable !== false;
+    const maximizable = () => props.behaviors?.maximizable !== false;
 
     const handleWindowMouseDown = () => {
       emit("focus");
@@ -32,6 +35,29 @@ export default defineComponent({
     const handleClose = (e: Event) => {
       e.stopPropagation();
       emit("close");
+    };
+
+    const handleMinimize = (e: Event) => {
+      e.stopPropagation();
+      emit("minimize");
+    };
+
+    const handleMaximizeRestore = (e: Event) => {
+      e.stopPropagation();
+      if (props.mode === "maximized") {
+        emit("restore");
+      } else {
+        emit("maximize");
+      }
+    };
+
+    const handleHeaderDblClick = () => {
+      if (!maximizable()) return;
+      if (props.mode === "maximized") {
+        emit("restore");
+      } else {
+        emit("maximize");
+      }
     };
 
     // Drag handling
@@ -131,7 +157,8 @@ export default defineComponent({
           class: [
             "vd-window-shell",
             isDragging.value && "vd-dragging",
-            isResizing.value && "vd-resizing"
+            isResizing.value && "vd-resizing",
+            props.mode === "maximized" && "vd-maximized"
           ],
           style: {
             position: "absolute",
@@ -150,16 +177,37 @@ export default defineComponent({
               class: "vd-window-header",
               onPointerdown: startDrag,
               onPointermove: onPointerMove,
-              onPointerup: onPointerUp
+              onPointerup: onPointerUp,
+              onDblclick: handleHeaderDblClick
             },
             [
               h("span", { class: "vd-window-title" }, props.title),
               h("div", { class: "vd-window-controls" }, [
+                minimizable() &&
+                  h(
+                    "button",
+                    {
+                      class: "vd-window-btn vd-window-minimize",
+                      onClick: handleMinimize,
+                      type: "button"
+                    },
+                    "\u2212"
+                  ),
+                maximizable() &&
+                  h(
+                    "button",
+                    {
+                      class: "vd-window-btn vd-window-maximize",
+                      onClick: handleMaximizeRestore,
+                      type: "button"
+                    },
+                    props.mode === "maximized" ? "\u2752" : "\u25A1"
+                  ),
                 closable() &&
                   h(
                     "button",
                     {
-                      class: "vd-window-close",
+                      class: "vd-window-btn vd-window-close",
                       onClick: handleClose,
                       type: "button"
                     },
