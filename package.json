@@ -17,6 +17,7 @@
     "format": "prettier --write src/",
     "lint": "eslint src",
     "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage",
     "check-docs": "node ./scripts/check-docs.js",
     "prepare": "husky install"
   },
@@ -41,6 +42,7 @@
     "@semantic-release/release-notes-generator": "14.1.0",
     "@tsconfig/node22": "22.0.0",
     "@vitejs/plugin-vue": "6.0.3",
+    "@vitest/coverage-v8": "^4.0.17",
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.8.1",
     "eslint": "9.39.2",
