@@ -23,6 +23,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
    - `WindowHost` renders list of windows; `WindowShell` provides header/body layout.
    - Add minimal styling and demo integration.
 
+    Status: implemented (2026-01-12) — `WindowHost` renders windows with z-order, `WindowShell` has positioned chrome with close button. Added `src/styles.css`, provide/inject pattern (`useDesktop`, `provideDesktop`), and demo integration.
+
 6. feat(interaction): add focus and z-order management
    - Implement focus handling and z-index ordering in `DesktopInstance` and `WindowHost`.
    - Tests for focus change behavior.
