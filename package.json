@@ -16,7 +16,9 @@
     "preview": "vite preview",
     "format": "prettier --write src/",
     "lint": "eslint src",
-    "test": "vitest --run"
+    "test": "vitest --run",
+    "check-docs": "node ./scripts/check-docs.js",
+    "prepare": "husky install"
   },
   "keywords": [
     "vue",
@@ -44,6 +46,7 @@
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.6.2",
+    "husky": "^8.0.0",
     "prettier": "3.7.4",
     "semantic-release": "25.0.2",
     "typescript": "5.9.3",
@@ -52,8 +55,7 @@
     "vitest": "4.0.16",
     "vue": "3.5.26",
     "vue-tsc": "3.2.1"
-  }
-  ,
+  },
   "release": {
     "verifyConditions": [
       "@semantic-release/changelog",
