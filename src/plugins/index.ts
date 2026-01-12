@@ -1,8 +1,8 @@
-export type PluginInstall = (app: any, options?: any) => void
+export type PluginInstall = (app: unknown, options?: unknown) => void;
 
 export interface Plugin {
-  name: string
-  install: PluginInstall
+  name: string;
+  install: PluginInstall;
 }
 
-export * from './TaskbarPlugin'
+export * from "./TaskbarPlugin";

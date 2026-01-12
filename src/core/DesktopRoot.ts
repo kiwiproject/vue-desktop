@@ -1,13 +1,15 @@
-import { App } from 'vue'
+import { App } from "vue";
 
 export interface DesktopRootOptions {
-  // future options such as theme, initial plugins
+  [key: string]: unknown;
 }
 
-export const install = (app: App, options?: DesktopRootOptions) => {
+export const install = (_app: App, _options?: DesktopRootOptions) => {
+  void _app;
+  void _options;
   // plugin installer for Vue apps
-}
+};
 
 export default {
   install
-}
+};
