@@ -17,6 +17,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
    - Implement window registry, `createWindow`, `closeWindow`, `getWindow`, and simple events.
    - Add unit tests covering registry operations.
 
+    Status: implemented (2026-01-12) — `src/core/DesktopInstance.ts` with registry, z-order, focus, and basic event bus. Tests added in `tests/desktop-instance.test.ts`.
+
 5. feat(ui): add `WindowHost` and `WindowShell` basic render
    - `WindowHost` renders list of windows; `WindowShell` provides header/body layout.
    - Add minimal styling and demo integration.
