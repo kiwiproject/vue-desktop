@@ -1,6 +1,7 @@
 import { defineComponent, h, computed } from "vue";
 import { useDesktop } from "./DesktopInstance";
 import WindowShell from "./WindowShell";
+import type { Bounds } from "./types";
 
 export default defineComponent({
   name: "WindowHost",
@@ -27,11 +28,13 @@ export default defineComponent({
               key: win.id,
               windowId: win.id!,
               title: win.title,
-              bounds: win.initialBounds!,
+              bounds: desktop.getBounds(win.id!) ?? (win.initialBounds as Bounds),
               behaviors: win.behaviors,
+              constraints: win.constraints,
               zIndex: 100 + index,
               onClose: () => desktop.closeWindow(win.id!),
-              onFocus: () => desktop.focusWindow(win.id!)
+              onFocus: () => desktop.focusWindow(win.id!),
+              onUpdateBounds: (bounds: Bounds) => desktop.updateBounds(win.id!, bounds)
             },
             () => h(win.component, win.props)
           )

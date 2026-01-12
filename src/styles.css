@@ -65,3 +65,93 @@
   overflow: auto;
   padding: 12px;
 }
+
+/* Drag/Resize States */
+.vd-window-shell.vd-dragging,
+.vd-window-shell.vd-resizing {
+  user-select: none;
+}
+
+.vd-window-shell.vd-dragging {
+  cursor: move;
+}
+
+.vd-window-header {
+  cursor: grab;
+}
+
+.vd-window-shell.vd-dragging .vd-window-header {
+  cursor: grabbing;
+}
+
+/* Resize Handles */
+.vd-resize-handle {
+  position: absolute;
+  z-index: 10;
+}
+
+/* Edge handles */
+.vd-resize-n {
+  top: -4px;
+  left: 8px;
+  right: 8px;
+  height: 8px;
+  cursor: n-resize;
+}
+
+.vd-resize-s {
+  bottom: -4px;
+  left: 8px;
+  right: 8px;
+  height: 8px;
+  cursor: s-resize;
+}
+
+.vd-resize-e {
+  right: -4px;
+  top: 8px;
+  bottom: 8px;
+  width: 8px;
+  cursor: e-resize;
+}
+
+.vd-resize-w {
+  left: -4px;
+  top: 8px;
+  bottom: 8px;
+  width: 8px;
+  cursor: w-resize;
+}
+
+/* Corner handles */
+.vd-resize-ne {
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: ne-resize;
+}
+
+.vd-resize-nw {
+  top: -4px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: nw-resize;
+}
+
+.vd-resize-se {
+  bottom: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: se-resize;
+}
+
+.vd-resize-sw {
+  bottom: -4px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: sw-resize;
+}

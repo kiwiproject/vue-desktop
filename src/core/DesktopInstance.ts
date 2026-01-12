@@ -1,4 +1,4 @@
-import { shallowRef, provide, inject, type InjectionKey, type ShallowRef } from "vue";
+import { shallowRef, provide, inject, triggerRef, type InjectionKey, type ShallowRef } from "vue";
 import { WindowDefinition, Bounds } from "./types";
 
 type Listener = (payload?: unknown) => void;
@@ -8,11 +8,13 @@ export const DESKTOP_KEY: InjectionKey<DesktopInstance> = Symbol("vue-desktop");
 export class DesktopInstance {
   private _windows: ShallowRef<WindowDefinition[]>;
   private _zOrder: ShallowRef<string[]>;
+  private _bounds: ShallowRef<Map<string, Bounds>>;
   private _listeners: Map<string, Listener[]> = new Map();
 
   constructor() {
     this._windows = shallowRef([]);
     this._zOrder = shallowRef([]);
+    this._bounds = shallowRef(new Map());
   }
 
   get windows(): WindowDefinition[] {
@@ -61,6 +63,22 @@ export class DesktopInstance {
     // move to top
     this._zOrder.value = [...this._zOrder.value.filter((z) => z !== id), id];
     this.emit("window-focused", { id });
+    return true;
+  }
+
+  getBounds(id: string): Bounds | undefined {
+    const win = this.getWindow(id);
+    if (!win) return undefined;
+    return this._bounds.value.get(id) ?? (win.initialBounds as Bounds);
+  }
+
+  updateBounds(id: string, bounds: Bounds) {
+    const win = this.getWindow(id);
+    if (!win) return false;
+    const oldBounds = this.getBounds(id);
+    this._bounds.value.set(id, bounds);
+    triggerRef(this._bounds);
+    this.emit("window-bounds-changed", { id, bounds, oldBounds });
     return true;
   }
 

@@ -33,6 +33,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
    - Add pointer handling in `WindowShell` for dragging/resizing; constraints support.
    - Add tests for bounds calculations (non-DOM logic).
 
+    Status: implemented (2026-01-12) — Added `src/core/bounds.ts` with `applyConstraints` and `calcResize` utilities. WindowShell now supports drag (via header) and resize (via 8 edge/corner handles). DesktopInstance tracks runtime bounds with `getBounds`/`updateBounds`. Tests added in `tests/bounds.test.ts`.
+
 8. feat(window-controls): add minimize/maximize/restore
    - Implement modes (minimized, maximized, normal) and persistence hooks.
    - Add plugin events to notify status changes.
