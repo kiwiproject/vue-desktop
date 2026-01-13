@@ -1,4 +1,10 @@
 import { Component } from "vue";
+import type { DesktopInstance } from "./DesktopInstance";
+
+export interface Plugin {
+  name: string;
+  install(desktop: DesktopInstance): void | (() => void);
+}
 
 export interface Bounds {
   x: number;

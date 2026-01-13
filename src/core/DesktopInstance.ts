@@ -1,5 +1,5 @@
 import { shallowRef, provide, inject, triggerRef, type InjectionKey, type ShallowRef } from "vue";
-import { WindowDefinition, Bounds, WindowMode } from "./types";
+import { WindowDefinition, Bounds, WindowMode, Plugin } from "./types";
 
 type Listener = (payload?: unknown) => void;
 
@@ -12,6 +12,7 @@ export class DesktopInstance {
   private _modes: ShallowRef<Map<string, WindowMode>>;
   private _restoreBounds: Map<string, Bounds> = new Map();
   private _listeners: Map<string, Listener[]> = new Map();
+  private _plugins: Map<string, (() => void) | undefined> = new Map();
 
   constructor() {
     this._windows = shallowRef([]);
@@ -158,6 +159,32 @@ export class DesktopInstance {
 
     const nextId = nonMinimized[nextIndex];
     return this.focusWindow(nextId);
+  }
+
+  // Plugin management
+  installPlugin(plugin: Plugin): boolean {
+    if (this._plugins.has(plugin.name)) {
+      return false;
+    }
+    const cleanup = plugin.install(this);
+    this._plugins.set(plugin.name, cleanup ?? undefined);
+    return true;
+  }
+
+  uninstallPlugin(name: string): boolean {
+    if (!this._plugins.has(name)) {
+      return false;
+    }
+    const cleanup = this._plugins.get(name);
+    if (cleanup) {
+      cleanup();
+    }
+    this._plugins.delete(name);
+    return true;
+  }
+
+  hasPlugin(name: string): boolean {
+    return this._plugins.has(name);
   }
 
   on(event: string, fn: Listener) {

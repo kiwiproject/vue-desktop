@@ -50,6 +50,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
     - Add `Plugin` interface, `installPlugin()` on `DesktopRoot` / `DesktopInstance`, and plugin lifecycle hooks.
     - Add example plugin registration unit tests.
 
+    Status: implemented (2026-01-12) — Added `Plugin` interface to types.ts. DesktopInstance has `installPlugin(plugin)`, `uninstallPlugin(name)`, and `hasPlugin(name)` methods. Plugin install() receives desktop instance and can return cleanup function. Tests added in `tests/plugin.test.ts`.
+
 11. feat(ui-registry): add UI registry for taskbar/overlays
     - Expose API for plugins to mount UIs (taskbar slot, overlays) and a simple renderer.
 
