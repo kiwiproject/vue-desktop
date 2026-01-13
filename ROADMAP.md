@@ -55,6 +55,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 11. feat(ui-registry): add UI registry for taskbar/overlays
     - Expose API for plugins to mount UIs (taskbar slot, overlays) and a simple renderer.
 
+    Status: implemented (2026-01-12) — Added `UIRegistration` interface and `registerUI()`, `unregisterUI()`, `getUIForSlot()` methods to DesktopInstance. Created `UISlot` component for rendering registered UIs. Tests added in `tests/ui-registry.test.ts`.
+
 12. feat(plugin-taskbar): implement taskbar plugin (UI + behavior)
     - Create taskbar UI, register with UI registry, show open windows and minimize/restore actions.
     - Wire demo to show taskbar in examples/demo.

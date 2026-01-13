@@ -1,5 +1,5 @@
 import { shallowRef, provide, inject, triggerRef, type InjectionKey, type ShallowRef } from "vue";
-import { WindowDefinition, Bounds, WindowMode, Plugin } from "./types";
+import { WindowDefinition, Bounds, WindowMode, Plugin, UIRegistration } from "./types";
 
 type Listener = (payload?: unknown) => void;
 
@@ -13,12 +13,14 @@ export class DesktopInstance {
   private _restoreBounds: Map<string, Bounds> = new Map();
   private _listeners: Map<string, Listener[]> = new Map();
   private _plugins: Map<string, (() => void) | undefined> = new Map();
+  private _uiRegistry: ShallowRef<UIRegistration[]>;
 
   constructor() {
     this._windows = shallowRef([]);
     this._zOrder = shallowRef([]);
     this._bounds = shallowRef(new Map());
     this._modes = shallowRef(new Map());
+    this._uiRegistry = shallowRef([]);
   }
 
   get windows(): WindowDefinition[] {
@@ -185,6 +187,27 @@ export class DesktopInstance {
 
   hasPlugin(name: string): boolean {
     return this._plugins.has(name);
+  }
+
+  // UI Registry
+  registerUI(registration: UIRegistration): () => void {
+    this._uiRegistry.value = [...this._uiRegistry.value, registration];
+    triggerRef(this._uiRegistry);
+    return () => this.unregisterUI(registration.id);
+  }
+
+  unregisterUI(id: string): boolean {
+    const idx = this._uiRegistry.value.findIndex((r) => r.id === id);
+    if (idx === -1) return false;
+    this._uiRegistry.value = this._uiRegistry.value.filter((r) => r.id !== id);
+    triggerRef(this._uiRegistry);
+    return true;
+  }
+
+  getUIForSlot(slot: string): UIRegistration[] {
+    return this._uiRegistry.value
+      .filter((r) => r.slot === slot)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   }
 
   on(event: string, fn: Listener) {

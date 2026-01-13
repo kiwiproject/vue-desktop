@@ -6,6 +6,14 @@ export interface Plugin {
   install(desktop: DesktopInstance): void | (() => void);
 }
 
+export interface UIRegistration {
+  id: string;
+  slot: string;
+  component: Component;
+  props?: Record<string, unknown>;
+  order?: number;
+}
+
 export interface Bounds {
   x: number;
   y: number;
