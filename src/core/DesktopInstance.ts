@@ -128,6 +128,38 @@ export class DesktopInstance {
     return true;
   }
 
+  getFocusedWindowId(): string | undefined {
+    const zOrder = this._zOrder.value;
+    if (zOrder.length === 0) return undefined;
+    return zOrder[zOrder.length - 1];
+  }
+
+  cycleFocus(reverse = false) {
+    // zOrder is [oldest...newest], so we traverse backwards for MRU order
+    const nonMinimized = this._zOrder.value.filter(
+      (id) => this.getMode(id) !== "minimized"
+    );
+    if (nonMinimized.length === 0) return false;
+
+    const currentId = this.getFocusedWindowId();
+    const currentIndex = currentId ? nonMinimized.indexOf(currentId) : -1;
+
+    let nextIndex: number;
+    if (currentIndex === -1) {
+      // No current focus, select most recent (last) or oldest (first)
+      nextIndex = reverse ? 0 : nonMinimized.length - 1;
+    } else if (reverse) {
+      // Alt+Shift+Tab: go to less recently used (forward in array)
+      nextIndex = currentIndex === nonMinimized.length - 1 ? 0 : currentIndex + 1;
+    } else {
+      // Alt+Tab: go to more recently used (backward in array)
+      nextIndex = currentIndex === 0 ? nonMinimized.length - 1 : currentIndex - 1;
+    }
+
+    const nextId = nonMinimized[nextIndex];
+    return this.focusWindow(nextId);
+  }
+
   on(event: string, fn: Listener) {
     const arr = this._listeners.get(event) ?? [];
     arr.push(fn);

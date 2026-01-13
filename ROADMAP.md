@@ -44,6 +44,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 9. feat(keyboard): add keyboard shortcuts and focus keyboard handling
    - Provide keyboard navigation for windows (e.g., Alt+Tab style) and shortcuts API.
 
+    Status: implemented (2026-01-12) — Added `getFocusedWindowId()` and `cycleFocus(reverse?)` to DesktopInstance. WindowHost handles keyboard events (Escape, Alt+F4 to close; Alt+Tab / Alt+Shift+Tab to cycle focus). Tests added in `tests/keyboard.test.ts`.
+
 10. feat(plugin-api): implement plugin registration system
     - Add `Plugin` interface, `installPlugin()` on `DesktopRoot` / `DesktopInstance`, and plugin lifecycle hooks.
     - Add example plugin registration unit tests.
