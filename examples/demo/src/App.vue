@@ -6,16 +6,18 @@
     </div>
     <div class="demo-desktop">
       <WindowHost />
+      <UISlot name="taskbar" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineComponent, h } from 'vue'
-import { createDesktop, provideDesktop, WindowHost } from '@kiwiproject/vue-desktop'
+import { createDesktop, provideDesktop, WindowHost, UISlot, TaskbarPlugin } from '@kiwiproject/vue-desktop'
 import '@kiwiproject/vue-desktop/styles.css'
 
 const desktop = createDesktop()
+desktop.installPlugin(TaskbarPlugin)
 provideDesktop(desktop)
 
 let windowCount = 0

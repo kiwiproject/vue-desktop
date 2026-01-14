@@ -63,6 +63,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
     - Create taskbar UI, register with UI registry, show open windows and minimize/restore actions.
     - Wire demo to show taskbar in examples/demo.
 
+    Status: implemented (2026-01-13) — Created `TaskbarPlugin` in `src/plugins/taskbar/`. Taskbar component shows all windows with focus highlight and minimized state. Click behavior: minimized windows restore+focus, focused windows minimize, unfocused windows focus. Exported from public API. Demo updated to use taskbar. Tests in `tests/taskbar.test.ts`.
+
 13. feat(plugin-shortcuts): implement shortcuts plugin
     - Global shortcuts registration and example shortcuts (close window, toggle maximize).
 

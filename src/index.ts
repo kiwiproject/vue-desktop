@@ -5,3 +5,6 @@ export { default as WindowShell } from "./core/WindowShell";
 export { default as UISlot } from "./core/UISlot";
 export * from "./core/types";
 export * from "./core/bounds";
+
+// Plugins
+export { TaskbarPlugin, Taskbar } from "./plugins/taskbar";
