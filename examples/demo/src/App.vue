@@ -13,11 +13,12 @@
 
 <script setup lang="ts">
 import { defineComponent, h } from 'vue'
-import { createDesktop, provideDesktop, WindowHost, UISlot, TaskbarPlugin } from '@kiwiproject/vue-desktop'
+import { createDesktop, provideDesktop, WindowHost, UISlot, TaskbarPlugin, ShortcutsPlugin } from '@kiwiproject/vue-desktop'
 import '@kiwiproject/vue-desktop/styles.css'
 
 const desktop = createDesktop()
 desktop.installPlugin(TaskbarPlugin)
+desktop.installPlugin(ShortcutsPlugin)
 provideDesktop(desktop)
 
 let windowCount = 0

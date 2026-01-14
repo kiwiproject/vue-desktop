@@ -68,6 +68,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 13. feat(plugin-shortcuts): implement shortcuts plugin
     - Global shortcuts registration and example shortcuts (close window, toggle maximize).
 
+    Status: implemented (2026-01-13) — Created `ShortcutsPlugin` in `src/plugins/shortcuts/`. Provides `createShortcutsPlugin(options)` factory and default `ShortcutsPlugin`. API exposes `register()`, `unregister()`, `setEnabled()`, `getShortcuts()` methods via `desktop.shortcuts`. Default shortcuts: Ctrl+W (close), Ctrl+Shift+F (toggle maximize), Ctrl+M (minimize). Includes `parseShortcut()` and `matchesShortcut()` utilities. Tests in `tests/shortcuts.test.ts`.
+
 14. feat(plugin-snap): implement window snapping plugin
     - Provide snap-to-grid and edge snapping behavior as a plugin.
 

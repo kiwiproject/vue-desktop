@@ -8,3 +8,13 @@ export * from "./core/bounds";
 
 // Plugins
 export { TaskbarPlugin, Taskbar } from "./plugins/taskbar";
+export {
+  ShortcutsPlugin,
+  createShortcutsPlugin,
+  parseShortcut,
+  matchesShortcut,
+  type ShortcutDefinition,
+  type ShortcutsAPI,
+  type DesktopInstanceWithShortcuts,
+  type ShortcutsPluginOptions
+} from "./plugins/shortcuts";
