@@ -18,3 +18,19 @@ export {
   type DesktopInstanceWithShortcuts,
   type ShortcutsPluginOptions
 } from "./plugins/shortcuts";
+export {
+  SnapPlugin,
+  createSnapPlugin,
+  snapToValue,
+  snapToGrid,
+  snapToEdges,
+  snapBoundsToGrid,
+  snapToWindows,
+  applySnapping,
+  type SnapOptions,
+  type SnapResult,
+  type SnapTarget,
+  type SnapAPI,
+  type SnapPluginOptions,
+  type DesktopInstanceWithSnap
+} from "./plugins/snap";

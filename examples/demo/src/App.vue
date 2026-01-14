@@ -4,7 +4,7 @@
       <h1>Vue Desktop — Demo</h1>
       <button @click="openWindow">Open Window</button>
     </div>
-    <div class="demo-desktop">
+    <div class="demo-desktop" ref="desktopRef">
       <WindowHost />
       <UISlot name="taskbar" />
     </div>
@@ -12,13 +12,29 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, h } from 'vue'
-import { createDesktop, provideDesktop, WindowHost, UISlot, TaskbarPlugin, ShortcutsPlugin } from '@kiwiproject/vue-desktop'
+import { defineComponent, h, ref } from 'vue'
+import { createDesktop, provideDesktop, WindowHost, UISlot, TaskbarPlugin, ShortcutsPlugin, createSnapPlugin } from '@kiwiproject/vue-desktop'
 import '@kiwiproject/vue-desktop/styles.css'
+
+const desktopRef = ref<HTMLElement | null>(null)
 
 const desktop = createDesktop()
 desktop.installPlugin(TaskbarPlugin)
 desktop.installPlugin(ShortcutsPlugin)
+desktop.installPlugin(createSnapPlugin({
+  edges: true,
+  windows: true,
+  threshold: 12,
+  getViewport: () => {
+    if (!desktopRef.value) return undefined
+    return {
+      x: 0,
+      y: 0,
+      width: desktopRef.value.clientWidth,
+      height: desktopRef.value.clientHeight - 48 // Account for taskbar
+    }
+  }
+}))
 provideDesktop(desktop)
 
 let windowCount = 0

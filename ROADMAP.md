@@ -73,6 +73,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 14. feat(plugin-snap): implement window snapping plugin
     - Provide snap-to-grid and edge snapping behavior as a plugin.
 
+    Status: implemented (2026-01-14) — Created `SnapPlugin` in `src/plugins/snap/`. Features: edge snapping (viewport boundaries), window-to-window snapping (align/dock), grid snapping (configurable grid size). API via `desktop.snap`: `setEnabled()`, `isEnabled()`, `setOptions()`, `getOptions()`. Utility functions exported: `snapToValue`, `snapToGrid`, `snapToEdges`, `snapToWindows`, `applySnapping`. Tests in `tests/snap.test.ts`.
+
 15. feat(plugin-persistence): implement persistence plugin
     - Persist window state (bounds/mode) to localStorage or optional persistence adapter.
     - Add tests for serialization logic (non-DOM).
