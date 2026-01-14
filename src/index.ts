@@ -39,6 +39,7 @@ export {
   createPersistencePlugin,
   createLocalStorageAdapter,
   createMemoryStorageAdapter,
+  createChainedAdapter,
   type StorageAdapter,
   type PersistedState,
   type PersistedWindowState,

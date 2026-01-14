@@ -3,6 +3,7 @@ import { createDesktop } from "../src/core/DesktopInstance";
 import {
   createPersistencePlugin,
   createMemoryStorageAdapter,
+  createChainedAdapter,
   type DesktopInstanceWithPersistence
 } from "../src/plugins/persistence";
 
@@ -38,6 +39,70 @@ describe("createMemoryStorageAdapter", () => {
     state.windows["win-1"].bounds!.x = 999;
 
     expect(adapter.load()?.windows["win-1"].bounds?.x).toBe(10);
+  });
+});
+
+describe("createChainedAdapter", () => {
+  it("load returns first non-null result", () => {
+    const adapter1 = createMemoryStorageAdapter();
+    const adapter2 = createMemoryStorageAdapter();
+    const chained = createChainedAdapter(adapter1, adapter2);
+
+    // Both empty
+    expect(chained.load()).toBe(null);
+
+    // Second has data
+    adapter2.save({ windows: { "win-2": {} } });
+    expect(chained.load()?.windows["win-2"]).toBeDefined();
+
+    // First has data - should return first
+    adapter1.save({ windows: { "win-1": {} } });
+    expect(chained.load()?.windows["win-1"]).toBeDefined();
+    expect(chained.load()?.windows["win-2"]).toBeUndefined();
+  });
+
+  it("save writes to all adapters", () => {
+    const adapter1 = createMemoryStorageAdapter();
+    const adapter2 = createMemoryStorageAdapter();
+    const chained = createChainedAdapter(adapter1, adapter2);
+
+    chained.save({ windows: { "win-1": { bounds: { x: 10, y: 20, width: 100, height: 100 } } } });
+
+    expect(adapter1.load()?.windows["win-1"]).toBeDefined();
+    expect(adapter2.load()?.windows["win-1"]).toBeDefined();
+  });
+
+  it("clear clears all adapters", () => {
+    const adapter1 = createMemoryStorageAdapter();
+    const adapter2 = createMemoryStorageAdapter();
+    const chained = createChainedAdapter(adapter1, adapter2);
+
+    adapter1.save({ windows: { "win-1": {} } });
+    adapter2.save({ windows: { "win-2": {} } });
+
+    chained.clear();
+
+    expect(adapter1.load()).toBe(null);
+    expect(adapter2.load()).toBe(null);
+  });
+
+  it("works with single adapter", () => {
+    const adapter = createMemoryStorageAdapter();
+    const chained = createChainedAdapter(adapter);
+
+    chained.save({ windows: { "win-1": {} } });
+    expect(chained.load()?.windows["win-1"]).toBeDefined();
+
+    chained.clear();
+    expect(chained.load()).toBe(null);
+  });
+
+  it("works with no adapters", () => {
+    const chained = createChainedAdapter();
+
+    expect(chained.load()).toBe(null);
+    chained.save({ windows: {} }); // Should not throw
+    chained.clear(); // Should not throw
   });
 });
 

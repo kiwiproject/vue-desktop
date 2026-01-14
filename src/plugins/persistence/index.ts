@@ -16,7 +16,7 @@ export type {
   PersistencePluginOptions
 } from "./types";
 
-export { createLocalStorageAdapter, createMemoryStorageAdapter } from "./types";
+export { createLocalStorageAdapter, createMemoryStorageAdapter, createChainedAdapter } from "./types";
 
 export interface PersistenceAPI {
   /** Manually save current state */

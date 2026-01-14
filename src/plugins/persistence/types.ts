@@ -126,3 +126,41 @@ export function createMemoryStorageAdapter(): StorageAdapter & { getData(): Pers
     }
   };
 }
+
+/**
+ * Create a chained storage adapter that delegates to multiple adapters.
+ * - load(): Returns the first non-null result from adapters (in order)
+ * - save(): Saves to all adapters
+ * - clear(): Clears all adapters
+ *
+ * Useful for combining localStorage with server sync, or wrapping adapters.
+ *
+ * @example
+ * ```ts
+ * const adapter = createChainedAdapter(
+ *   createLocalStorageAdapter('vue-desktop'),
+ *   serverStorageAdapter
+ * );
+ * ```
+ */
+export function createChainedAdapter(...adapters: StorageAdapter[]): StorageAdapter {
+  return {
+    load(): PersistedState | null {
+      for (const adapter of adapters) {
+        const state = adapter.load();
+        if (state) return state;
+      }
+      return null;
+    },
+    save(state: PersistedState): void {
+      for (const adapter of adapters) {
+        adapter.save(state);
+      }
+    },
+    clear(): void {
+      for (const adapter of adapters) {
+        adapter.clear();
+      }
+    }
+  };
+}
