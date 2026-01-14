@@ -14,6 +14,8 @@ export class DesktopInstance {
   private _listeners: Map<string, Listener[]> = new Map();
   private _plugins: Map<string, (() => void) | undefined> = new Map();
   private _uiRegistry: ShallowRef<UIRegistration[]>;
+  private _switcherActive: ShallowRef<boolean>;
+  private _switcherSelectedId: ShallowRef<string | null>;
 
   constructor() {
     this._windows = shallowRef([]);
@@ -21,6 +23,8 @@ export class DesktopInstance {
     this._bounds = shallowRef(new Map());
     this._modes = shallowRef(new Map());
     this._uiRegistry = shallowRef([]);
+    this._switcherActive = shallowRef(false);
+    this._switcherSelectedId = shallowRef(null);
   }
 
   get windows(): WindowDefinition[] {
@@ -161,6 +165,74 @@ export class DesktopInstance {
 
     const nextId = nonMinimized[nextIndex];
     return this.focusWindow(nextId);
+  }
+
+  // Window Switcher
+  get switcherActive(): boolean {
+    return this._switcherActive.value;
+  }
+
+  get switcherSelectedId(): string | null {
+    return this._switcherSelectedId.value;
+  }
+
+  getSwitcherWindows(): WindowDefinition[] {
+    // Return non-minimized windows in MRU order (most recent last)
+    const nonMinimizedIds = this._zOrder.value.filter(
+      (id) => this.getMode(id) !== "minimized"
+    );
+    // Reverse to get MRU first
+    return nonMinimizedIds
+      .slice()
+      .reverse()
+      .map((id) => this.getWindow(id)!)
+      .filter(Boolean);
+  }
+
+  openSwitcher(): void {
+    const windows = this.getSwitcherWindows();
+    if (windows.length === 0) return;
+
+    this._switcherActive.value = true;
+    // Select the second window (first in MRU after current) if available, else first
+    this._switcherSelectedId.value = windows.length > 1 ? windows[1].id! : windows[0].id!;
+    triggerRef(this._switcherActive);
+    triggerRef(this._switcherSelectedId);
+  }
+
+  closeSwitcher(commit = true): void {
+    if (!this._switcherActive.value) return;
+
+    const selectedId = this._switcherSelectedId.value;
+    this._switcherActive.value = false;
+    this._switcherSelectedId.value = null;
+    triggerRef(this._switcherActive);
+    triggerRef(this._switcherSelectedId);
+
+    if (commit && selectedId) {
+      this.focusWindow(selectedId);
+    }
+  }
+
+  cycleSwitcherSelection(reverse = false): void {
+    if (!this._switcherActive.value) return;
+
+    const windows = this.getSwitcherWindows();
+    if (windows.length === 0) return;
+
+    const currentIndex = windows.findIndex((w) => w.id === this._switcherSelectedId.value);
+    let nextIndex: number;
+
+    if (currentIndex === -1) {
+      nextIndex = 0;
+    } else if (reverse) {
+      nextIndex = currentIndex === 0 ? windows.length - 1 : currentIndex - 1;
+    } else {
+      nextIndex = currentIndex === windows.length - 1 ? 0 : currentIndex + 1;
+    }
+
+    this._switcherSelectedId.value = windows[nextIndex].id!;
+    triggerRef(this._switcherSelectedId);
   }
 
   // Plugin management

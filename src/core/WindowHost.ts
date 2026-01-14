@@ -1,6 +1,7 @@
 import { defineComponent, h, computed, ref, onMounted, onUnmounted, type PropType } from "vue";
 import { useDesktop } from "./DesktopInstance";
 import WindowShell from "./WindowShell";
+import WindowSwitcher from "./WindowSwitcher";
 import type { Bounds } from "./types";
 
 export interface KeyboardShortcuts {
@@ -67,12 +68,19 @@ export default defineComponent({
     const handleKeydown = (e: KeyboardEvent) => {
       const focusedId = desktop.getFocusedWindowId();
 
-      // Escape - close focused window
-      if (props.shortcuts.escape && e.key === "Escape" && focusedId) {
-        const win = desktop.getWindow(focusedId);
-        if (win?.behaviors?.closable !== false) {
-          desktop.closeWindow(focusedId);
+      // Escape - close switcher or close focused window
+      if (props.shortcuts.escape && e.key === "Escape") {
+        if (desktop.switcherActive) {
+          desktop.closeSwitcher(false);
           e.preventDefault();
+          return;
+        }
+        if (focusedId) {
+          const win = desktop.getWindow(focusedId);
+          if (win?.behaviors?.closable !== false) {
+            desktop.closeWindow(focusedId);
+            e.preventDefault();
+          }
         }
         return;
       }
@@ -87,11 +95,23 @@ export default defineComponent({
         return;
       }
 
-      // Alt+Tab / Alt+Shift+Tab - cycle focus
+      // Alt+Tab / Alt+Shift+Tab - open switcher or cycle selection
       if (props.shortcuts.altTab && e.key === "Tab" && e.altKey) {
-        desktop.cycleFocus(e.shiftKey);
+        if (!desktop.switcherActive) {
+          desktop.openSwitcher();
+        } else {
+          desktop.cycleSwitcherSelection(e.shiftKey);
+        }
         e.preventDefault();
         return;
+      }
+    };
+
+    const handleKeyup = (e: KeyboardEvent) => {
+      // Alt release - commit switcher selection
+      if (e.key === "Alt" && desktop.switcherActive) {
+        desktop.closeSwitcher(true);
+        e.preventDefault();
       }
     };
 
@@ -102,33 +122,37 @@ export default defineComponent({
           class: "vd-window-host",
           tabindex: -1,
           onKeydown: handleKeydown,
+          onKeyup: handleKeyup,
           ref: (el: unknown) => {
             hostRef.value = el as HTMLElement;
             if (el) updateViewport();
           }
         },
-        visibleWindows.value.map((win, index) =>
-          h(
-            WindowShell,
-            {
-              key: win.id,
-              windowId: win.id!,
-              title: win.title,
-              bounds: getBoundsForWindow(win.id!),
-              behaviors: win.behaviors,
-              constraints: win.constraints,
-              mode: desktop.getMode(win.id!),
-              zIndex: 100 + index,
-              onClose: () => desktop.closeWindow(win.id!),
-              onFocus: () => desktop.focusWindow(win.id!),
-              onUpdateBounds: (bounds: Bounds) => desktop.updateBounds(win.id!, bounds),
-              onMinimize: () => desktop.minimizeWindow(win.id!),
-              onMaximize: () => desktop.maximizeWindow(win.id!),
-              onRestore: () => desktop.restoreWindow(win.id!)
-            },
-            () => h(win.component, win.props)
-          )
-        )
+        [
+          ...visibleWindows.value.map((win, index) =>
+            h(
+              WindowShell,
+              {
+                key: win.id,
+                windowId: win.id!,
+                title: win.title,
+                bounds: getBoundsForWindow(win.id!),
+                behaviors: win.behaviors,
+                constraints: win.constraints,
+                mode: desktop.getMode(win.id!),
+                zIndex: 100 + index,
+                onClose: () => desktop.closeWindow(win.id!),
+                onFocus: () => desktop.focusWindow(win.id!),
+                onUpdateBounds: (bounds: Bounds) => desktop.updateBounds(win.id!, bounds),
+                onMinimize: () => desktop.minimizeWindow(win.id!),
+                onMaximize: () => desktop.maximizeWindow(win.id!),
+                onRestore: () => desktop.restoreWindow(win.id!)
+              },
+              () => h(win.component, win.props)
+            )
+          ),
+          h(WindowSwitcher)
+        ]
       );
   }
 });

@@ -46,6 +46,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 
     Status: implemented (2026-01-12) — Added `getFocusedWindowId()` and `cycleFocus(reverse?)` to DesktopInstance. WindowHost handles keyboard events (Escape, Alt+F4 to close; Alt+Tab / Alt+Shift+Tab to cycle focus). Tests added in `tests/keyboard.test.ts`.
 
+    Enhanced (2026-01-13) — Added visual window switcher overlay. Alt+Tab opens a centered overlay showing window tiles; continued Tab presses cycle selection; releasing Alt commits selection. Added `WindowSwitcher` component and switcher methods (`openSwitcher`, `closeSwitcher`, `cycleSwitcherSelection`, `getSwitcherWindows`). Tests in `tests/switcher.test.ts`.
+
 10. feat(plugin-api): implement plugin registration system
     - Add `Plugin` interface, `installPlugin()` on `DesktopRoot` / `DesktopInstance`, and plugin lifecycle hooks.
     - Add example plugin registration unit tests.
