@@ -79,6 +79,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
     - Persist window state (bounds/mode) to localStorage or optional persistence adapter.
     - Add tests for serialization logic (non-DOM).
 
+    Status: implemented (2026-01-14) — Created `PersistencePlugin` in `src/plugins/persistence/`. Features: automatic save/restore of window bounds and mode, debounced saves, localStorage adapter (default), memory adapter for testing, custom storage adapter support, configurable persist key via `getWindowKey`. API via `desktop.persistence`: `save()`, `load()`, `clear()`, `getWindowState()`, `isEnabled()`, `setEnabled()`. Tests in `tests/persistence.test.ts`.
+
 16. chore: examples and demo improvements
     - Expand `examples/demo` to demonstrate multiple windows, taskbar, persistence, and plugins toggling.
 

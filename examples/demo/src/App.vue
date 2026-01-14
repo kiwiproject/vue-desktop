@@ -12,9 +12,52 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, h, ref } from 'vue'
-import { createDesktop, provideDesktop, WindowHost, UISlot, TaskbarPlugin, ShortcutsPlugin, createSnapPlugin } from '@kiwiproject/vue-desktop'
+import { defineComponent, h, ref, onMounted } from 'vue'
+import {
+  createDesktop,
+  provideDesktop,
+  WindowHost,
+  UISlot,
+  TaskbarPlugin,
+  ShortcutsPlugin,
+  createSnapPlugin,
+  createPersistencePlugin,
+  type PersistedWindowInfo,
+  type DesktopInstanceWithPersistence
+} from '@kiwiproject/vue-desktop'
 import '@kiwiproject/vue-desktop/styles.css'
+
+// Define window components first (so they're available for the factory)
+const SampleContent = defineComponent({
+  name: 'SampleContent',
+  props: { message: String },
+  setup(props) {
+    return () => h('div', [
+      h('p', `This is window content.`),
+      h('p', props.message || 'No message provided.')
+    ])
+  }
+})
+
+// Window type registry - maps type names to components
+const windowComponents: Record<string, ReturnType<typeof defineComponent>> = {
+  sample: SampleContent
+}
+
+// Window factory for session restoration
+function windowFactory(info: PersistedWindowInfo) {
+  const component = windowComponents[info.type]
+  if (!component) return null
+
+  return {
+    type: info.type,
+    title: info.title,
+    component,
+    props: info.props,
+    singletonKey: info.singletonKey,
+    meta: info.meta
+  }
+}
 
 const desktopRef = ref<HTMLElement | null>(null)
 
@@ -35,19 +78,19 @@ desktop.installPlugin(createSnapPlugin({
     }
   }
 }))
+desktop.installPlugin(createPersistencePlugin({
+  storageKey: 'vue-desktop-demo',
+  persistSession: true,
+  windowFactory
+}))
 provideDesktop(desktop)
 
-let windowCount = 0
-
-const SampleContent = defineComponent({
-  props: { message: String },
-  setup(props) {
-    return () => h('div', [
-      h('p', `This is window content.`),
-      h('p', props.message || 'No message provided.')
-    ])
-  }
+// Restore session on mount
+onMounted(() => {
+  ;(desktop as DesktopInstanceWithPersistence).persistence?.restoreSession()
 })
+
+let windowCount = 0
 
 function openWindow() {
   windowCount++

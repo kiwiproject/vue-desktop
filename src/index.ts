@@ -34,3 +34,16 @@ export {
   type SnapPluginOptions,
   type DesktopInstanceWithSnap
 } from "./plugins/snap";
+export {
+  PersistencePlugin,
+  createPersistencePlugin,
+  createLocalStorageAdapter,
+  createMemoryStorageAdapter,
+  type StorageAdapter,
+  type PersistedState,
+  type PersistedWindowState,
+  type PersistedWindowInfo,
+  type PersistencePluginOptions,
+  type PersistenceAPI,
+  type DesktopInstanceWithPersistence
+} from "./plugins/persistence";
