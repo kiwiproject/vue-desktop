@@ -22,6 +22,7 @@ import {
   ShortcutsPlugin,
   createSnapPlugin,
   createPersistencePlugin,
+  createStartMenuPlugin,
   type PersistedWindowInfo,
   type DesktopInstanceWithPersistence
 } from '@kiwiproject/vue-desktop'
@@ -83,6 +84,73 @@ desktop.installPlugin(createPersistencePlugin({
   persistSession: true,
   windowFactory
 }))
+
+// Start menu with sample apps
+let startMenuWindowCount = 0
+desktop.installPlugin(createStartMenuPlugin({
+  buttonLabel: 'Start',
+  apps: [
+    {
+      id: 'new-window',
+      label: 'New Window',
+      icon: '📄',
+      category: 'General',
+      factory: () => ({
+        type: 'sample',
+        title: `Window ${++startMenuWindowCount}`,
+        component: SampleContent,
+        props: { message: 'Opened from Start menu!' },
+        initialBounds: {
+          x: 100 + startMenuWindowCount * 30,
+          y: 100 + startMenuWindowCount * 30,
+          width: 400,
+          height: 300
+        }
+      })
+    },
+    {
+      id: 'notepad',
+      label: 'Notepad',
+      icon: '📝',
+      category: 'Utilities',
+      shortcut: 'Ctrl+N',
+      factory: () => ({
+        type: 'sample',
+        title: 'Notepad',
+        component: SampleContent,
+        props: { message: 'A simple notepad window.' },
+        singletonKey: 'notepad'
+      })
+    },
+    {
+      id: 'calculator',
+      label: 'Calculator',
+      icon: '🔢',
+      category: 'Utilities',
+      factory: () => ({
+        type: 'sample',
+        title: 'Calculator',
+        component: SampleContent,
+        props: { message: 'A calculator window.' },
+        singletonKey: 'calculator'
+      })
+    },
+    {
+      id: 'settings',
+      label: 'Settings',
+      icon: '⚙️',
+      category: 'System',
+      factory: () => ({
+        type: 'sample',
+        title: 'Settings',
+        component: SampleContent,
+        props: { message: 'System settings.' },
+        singletonKey: 'settings'
+      })
+    }
+  ]
+}))
+
 provideDesktop(desktop)
 
 // Restore session on mount

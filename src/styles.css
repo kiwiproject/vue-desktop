@@ -285,7 +285,7 @@
 .vd-taskbar-items {
   display: flex;
   gap: 4px;
-  padding: 0 8px;
+  padding: 0 8px 0 80px; /* Left padding for start menu button */
   flex: 1;
   overflow-x: auto;
 }
@@ -342,4 +342,114 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Start Menu */
+.vd-start-menu-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  z-index: 10001;
+}
+
+.vd-start-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 4px;
+  transition: background 0.15s;
+}
+
+.vd-start-button:hover,
+.vd-start-button.vd-open {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.vd-start-button-icon {
+  font-size: 16px;
+}
+
+.vd-start-button-label {
+  font-weight: 500;
+}
+
+.vd-start-menu {
+  position: fixed;
+  bottom: 52px;
+  left: 4px;
+  width: 280px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: rgba(30, 30, 30, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  padding: 8px 0;
+}
+
+.vd-start-menu-category {
+  padding: 12px 12px 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.vd-start-menu-category:first-child {
+  padding-top: 4px;
+}
+
+.vd-start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.vd-start-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.vd-start-menu-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.vd-start-menu-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vd-start-menu-shortcut {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
 }

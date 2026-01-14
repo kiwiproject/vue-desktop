@@ -81,6 +81,13 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 
     Status: implemented (2026-01-14) — Created `PersistencePlugin` in `src/plugins/persistence/`. Features: automatic save/restore of window bounds and mode, debounced saves, localStorage adapter (default), memory adapter for testing, custom storage adapter support, configurable persist key via `getWindowKey`. API via `desktop.persistence`: `save()`, `load()`, `clear()`, `getWindowState()`, `isEnabled()`, `setEnabled()`. Tests in `tests/persistence.test.ts`.
 
+15.5. feat(plugin-start-menu): implement start menu plugin
+    - Start menu button in taskbar with dropdown panel showing registered apps.
+    - Apps grouped by category with optional keyboard shortcut hints.
+    - Click app to open window via factory function.
+
+    Status: implemented (2026-01-14) — Created `StartMenuPlugin` in `src/plugins/start-menu/`. Features: static app registration via options, dynamic registration via API, category grouping, shortcut hints. API via `desktop.startMenu`: `registerApp()`, `unregisterApp()`, `getApps()`, `getAppsByCategory()`, `open()`, `close()`, `toggle()`, `isOpen()`. Tests in `tests/start-menu.test.ts`.
+
 16. chore: examples and demo improvements
     - Expand `examples/demo` to demonstrate multiple windows, taskbar, persistence, and plugins toggling.
 

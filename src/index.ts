@@ -48,3 +48,12 @@ export {
   type PersistenceAPI,
   type DesktopInstanceWithPersistence
 } from "./plugins/persistence";
+export {
+  StartMenuPlugin,
+  createStartMenuPlugin,
+  StartMenu,
+  type StartMenuApp,
+  type StartMenuAPI,
+  type StartMenuPluginOptions,
+  type DesktopInstanceWithStartMenu
+} from "./plugins/start-menu";
