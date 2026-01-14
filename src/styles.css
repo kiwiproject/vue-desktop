@@ -170,6 +170,33 @@
   cursor: default;
 }
 
+/* Focused Window */
+.vd-window-shell.vd-focused {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 2px #0078d4;
+}
+
+.vd-window-shell.vd-focused .vd-window-header {
+  background: #0078d4;
+  border-bottom-color: #0078d4;
+}
+
+.vd-window-shell.vd-focused .vd-window-title {
+  color: #fff;
+}
+
+.vd-window-shell.vd-focused .vd-window-btn {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vd-window-shell.vd-focused .vd-window-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.vd-window-shell.vd-focused .vd-window-close:hover {
+  background: #e81123;
+  color: #fff;
+}
+
 /* Window Switcher */
 .vd-switcher-overlay {
   position: absolute;

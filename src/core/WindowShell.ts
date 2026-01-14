@@ -13,7 +13,8 @@ export default defineComponent({
     behaviors: { type: Object as PropType<WindowBehaviors>, default: () => ({}) },
     constraints: { type: Object as PropType<WindowConstraints>, default: () => ({}) },
     mode: { type: String as PropType<WindowMode>, default: "normal" },
-    zIndex: { type: Number, default: 100 }
+    zIndex: { type: Number, default: 100 },
+    focused: { type: Boolean, default: false }
   },
   emits: ["close", "focus", "updateBounds", "minimize", "maximize", "restore"],
   setup(props, { slots, emit }) {
@@ -158,7 +159,8 @@ export default defineComponent({
             "vd-window-shell",
             isDragging.value && "vd-dragging",
             isResizing.value && "vd-resizing",
-            props.mode === "maximized" && "vd-maximized"
+            props.mode === "maximized" && "vd-maximized",
+            props.focused && "vd-focused"
           ],
           style: {
             position: "absolute",
