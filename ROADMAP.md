@@ -107,6 +107,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 18. docs: API docs and usage examples
     - Generate or write documentation for public APIs and plugin contract. Add top-level examples in README.
 
+    Status: implemented (2026-01-14) — Comprehensive README with: features overview, installation, quick start example, core API documentation (createDesktop, provideDesktop, useDesktop, all methods), window definition types, component documentation (WindowHost, UISlot), all 6 plugins fully documented with options and APIs, custom plugin creation guide, keyboard shortcuts reference, styling guide, TypeScript types list, and development instructions.
+
 19. chore: CI coverage and badges
     - Ensure `pnpm build`, `pnpm lint`, `pnpm test` run in CI and add status badges to README.
 
