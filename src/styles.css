@@ -561,3 +561,72 @@
   font-size: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* Context Menu */
+.vd-context-menu {
+  position: fixed;
+  background: rgba(30, 30, 30, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  padding: 4px 0;
+  min-width: 180px;
+  z-index: 10003;
+}
+
+.vd-context-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  cursor: pointer;
+  gap: 8px;
+  transition: background 0.1s;
+}
+
+.vd-context-menu-item:hover,
+.vd-context-menu-item.vd-selected {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.vd-context-menu-item-disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.vd-context-menu-item-icon {
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.vd-context-menu-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vd-context-menu-item-shortcut {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.vd-context-menu-item-arrow {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.vd-context-menu-separator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px 8px;
+}
+
+.vd-context-menu-submenu {
+  position: fixed;
+}

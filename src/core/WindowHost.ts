@@ -115,6 +115,18 @@ export default defineComponent({
       }
     };
 
+    const handleDesktopContextMenu = (e: MouseEvent) => {
+      // Only trigger if clicking directly on the host, not on a window
+      if (e.target === hostRef.value) {
+        e.preventDefault();
+        desktop.emit("desktop:contextmenu", { x: e.clientX, y: e.clientY });
+      }
+    };
+
+    const handleWindowContextMenu = (windowId: string, pos: { x: number; y: number }) => {
+      desktop.emit("window:contextmenu", { windowId, x: pos.x, y: pos.y });
+    };
+
     return () =>
       h(
         "div",
@@ -123,6 +135,7 @@ export default defineComponent({
           tabindex: -1,
           onKeydown: handleKeydown,
           onKeyup: handleKeyup,
+          onContextmenu: handleDesktopContextMenu,
           ref: (el: unknown) => {
             hostRef.value = el as HTMLElement;
             if (el) updateViewport();
@@ -147,7 +160,8 @@ export default defineComponent({
                 onUpdateBounds: (bounds: Bounds) => desktop.updateBounds(win.id!, bounds),
                 onMinimize: () => desktop.minimizeWindow(win.id!),
                 onMaximize: () => desktop.maximizeWindow(win.id!),
-                onRestore: () => desktop.restoreWindow(win.id!)
+                onRestore: () => desktop.restoreWindow(win.id!),
+                onContextmenu: (pos: { x: number; y: number }) => handleWindowContextMenu(win.id!, pos)
               },
               () => h(win.component, win.props)
             )

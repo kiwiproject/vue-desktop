@@ -69,3 +69,14 @@ export {
   type SpotlightPluginOptions,
   type DesktopInstanceWithSpotlight
 } from "./plugins/spotlight";
+export {
+  ContextMenuPlugin,
+  createContextMenuPlugin,
+  ContextMenu,
+  type ContextMenuItem,
+  type ContextMenuAPI,
+  type ContextMenuPluginOptions,
+  type MenuItemsOrBuilder,
+  type MenuContext,
+  type DesktopInstanceWithContextMenu
+} from "./plugins/context-menu";

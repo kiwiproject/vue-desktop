@@ -13,7 +13,7 @@
           Snap
         </label>
       </div>
-      <span class="demo-hint">Cmd/Ctrl+K: Spotlight | Alt+Tab: Switch Windows</span>
+      <span class="demo-hint">Right-click: Context Menu | Cmd/Ctrl+K: Spotlight | Alt+Tab: Switch</span>
     </div>
     <div class="demo-desktop" ref="desktopRef">
       <WindowHost />
@@ -36,6 +36,7 @@ import {
   createPersistencePlugin,
   createStartMenuPlugin,
   createSpotlightPlugin,
+  createContextMenuPlugin,
   type PersistedWindowInfo,
   type DesktopInstanceWithPersistence,
   type DesktopInstanceWithSnap
@@ -162,6 +163,8 @@ const HelpWindow = defineComponent({
         h('li', 'Drag windows by the title bar'),
         h('li', 'Resize from any edge or corner'),
         h('li', 'Double-click title bar to maximize'),
+        h('li', 'Right-click title bar for window menu'),
+        h('li', 'Right-click desktop for context menu'),
         h('li', 'Windows snap to edges and other windows'),
         h('li', 'Session persists across page refreshes'),
       ]),
@@ -170,6 +173,7 @@ const HelpWindow = defineComponent({
         h('li', [h('strong', 'Taskbar'), ' — Shows open windows at bottom']),
         h('li', [h('strong', 'Start Menu'), ' — Click "Start" to launch apps']),
         h('li', [h('strong', 'Spotlight'), ' — Quick search with Cmd/Ctrl+K']),
+        h('li', [h('strong', 'Context Menu'), ' — Right-click menus with submenus']),
         h('li', [h('strong', 'Shortcuts'), ' — Global keyboard shortcuts']),
         h('li', [h('strong', 'Snap'), ' — Window edge/grid snapping']),
         h('li', [h('strong', 'Persistence'), ' — Saves window state to localStorage']),
@@ -370,6 +374,119 @@ desktop.installPlugin(createStartMenuPlugin({
 desktop.installPlugin(createSpotlightPlugin({
   placeholder: 'Search apps and windows...',
   maxResults: 10
+}))
+
+// Context menus (right-click on desktop or window title bar)
+desktop.installPlugin(createContextMenuPlugin({
+  desktopMenu: (ctx) => [
+    {
+      id: 'new-window',
+      label: 'New Window',
+      icon: '📄',
+      action: () => openWindow()
+    },
+    {
+      id: 'apps',
+      label: 'Applications',
+      icon: '📁',
+      children: [
+        { id: 'app-editor', label: 'Text Editor', icon: '📝', action: () => {
+          desktop.createWindow({
+            type: 'editor',
+            title: 'Text Editor',
+            icon: '📝',
+            component: TextEditor,
+            singletonKey: 'editor',
+            initialBounds: { x: 150, y: 100, width: 500, height: 400 }
+          })
+        }},
+        { id: 'app-color', label: 'Color Picker', icon: '🎨', action: () => {
+          desktop.createWindow({
+            type: 'color',
+            title: 'Color Picker',
+            icon: '🎨',
+            component: ColorPicker,
+            singletonKey: 'color-picker',
+            initialBounds: { x: 250, y: 150, width: 280, height: 320 }
+          })
+        }},
+        { id: 'app-counter', label: 'Counter', icon: '🔢', action: () => {
+          desktop.createWindow({
+            type: 'counter',
+            title: 'Counter',
+            icon: '🔢',
+            component: CounterDemo,
+            singletonKey: 'counter',
+            initialBounds: { x: 300, y: 180, width: 250, height: 200 }
+          })
+        }}
+      ]
+    },
+    { id: 'sep1', label: '', separator: true },
+    {
+      id: 'help',
+      label: 'Help',
+      icon: '❓',
+      shortcut: 'F1',
+      action: () => showHelp()
+    },
+    {
+      id: 'about',
+      label: 'About',
+      icon: 'ℹ️',
+      action: () => {
+        desktop.createWindow({
+          type: 'about',
+          title: 'About Vue Desktop',
+          icon: 'ℹ️',
+          component: AboutDialog,
+          singletonKey: 'about',
+          behaviors: { resizable: false },
+          initialBounds: { x: 200, y: 120, width: 320, height: 340 }
+        })
+      }
+    },
+    { id: 'sep2', label: '', separator: true },
+    {
+      id: 'refresh',
+      label: 'Refresh',
+      icon: '🔄',
+      shortcut: 'F5',
+      action: () => location.reload()
+    }
+  ],
+  windowMenu: (ctx) => {
+    const mode = ctx.desktop.getMode(ctx.windowId!)
+    return [
+      {
+        id: 'minimize',
+        label: 'Minimize',
+        icon: '−',
+        disabled: mode === 'minimized',
+        action: () => ctx.desktop.minimizeWindow(ctx.windowId!)
+      },
+      {
+        id: 'maximize',
+        label: mode === 'maximized' ? 'Restore' : 'Maximize',
+        icon: mode === 'maximized' ? '⧉' : '□',
+        action: () => {
+          if (mode === 'maximized') {
+            ctx.desktop.restoreWindow(ctx.windowId!)
+          } else {
+            ctx.desktop.maximizeWindow(ctx.windowId!)
+          }
+        }
+      },
+      { id: 'sep', label: '', separator: true },
+      {
+        id: 'close',
+        label: 'Close',
+        icon: '✕',
+        shortcut: 'Ctrl+W',
+        action: () => ctx.desktop.closeWindow(ctx.windowId!)
+      }
+    ]
+  }
 }))
 
 provideDesktop(desktop)

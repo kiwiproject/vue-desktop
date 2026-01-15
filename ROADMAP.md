@@ -96,6 +96,15 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 
     Status: implemented (2026-01-14) — Created `SpotlightPlugin` in `src/plugins/spotlight/`. Features: keyboard shortcut trigger (Cmd/Ctrl+K), built-in providers for apps and windows, custom provider registration, search by label/description/keywords, category grouping, keyboard navigation (arrows/enter/escape). API via `desktop.spotlight`: `open()`, `close()`, `toggle()`, `isOpen()`, `registerProvider()`, `unregisterProvider()`, `getProviders()`, `search()`. Tests in `tests/spotlight.test.ts`.
 
+15.7. feat(plugin-context-menu): implement context menu plugin
+    - Right-click context menus on desktop background and window title bars.
+    - Support for nested submenus with hover/arrow-key navigation.
+    - Smart positioning to keep menus within viewport bounds.
+    - Keyboard navigation (arrows, Enter, Escape).
+    - Dynamic menu builders (function returning items based on context).
+
+    Status: implemented (2026-01-15) — Created `ContextMenuPlugin` in `src/plugins/context-menu/`. Features: desktop and window context menus, nested submenus, smart viewport positioning, keyboard navigation, static or dynamic menu items via builder functions. API via `desktop.contextMenu`: `show()`, `hide()`, `isOpen()`, `setDesktopMenu()`, `setWindowMenu()`. Default menus include window controls (minimize/maximize/close) and desktop actions (new window, refresh). Tests in `tests/context-menu.test.ts`.
+
 16. chore: examples and demo improvements
     - Expand `examples/demo` to demonstrate multiple windows, taskbar, persistence, and plugins toggling.
 

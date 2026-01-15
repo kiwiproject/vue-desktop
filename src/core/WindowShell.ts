@@ -16,7 +16,7 @@ export default defineComponent({
     zIndex: { type: Number, default: 100 },
     focused: { type: Boolean, default: false }
   },
-  emits: ["close", "focus", "updateBounds", "minimize", "maximize", "restore"],
+  emits: ["close", "focus", "updateBounds", "minimize", "maximize", "restore", "contextmenu"],
   setup(props, { slots, emit }) {
     const isDragging = ref(false);
     const isResizing = ref(false);
@@ -59,6 +59,12 @@ export default defineComponent({
       } else {
         emit("maximize");
       }
+    };
+
+    const handleHeaderContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      emit("contextmenu", { x: e.clientX, y: e.clientY });
     };
 
     // Drag handling
@@ -180,7 +186,8 @@ export default defineComponent({
               onPointerdown: startDrag,
               onPointermove: onPointerMove,
               onPointerup: onPointerUp,
-              onDblclick: handleHeaderDblClick
+              onDblclick: handleHeaderDblClick,
+              onContextmenu: handleHeaderContextMenu
             },
             [
               h("span", { class: "vd-window-title" }, props.title),
