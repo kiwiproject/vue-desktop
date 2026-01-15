@@ -453,3 +453,111 @@
   font-size: 11px;
   color: rgba(255, 255, 255, 0.4);
 }
+
+/* Spotlight */
+.vd-spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  z-index: 10002;
+}
+
+.vd-spotlight-container {
+  width: 500px;
+  max-width: 90%;
+  background: rgba(30, 30, 30, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.vd-spotlight-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  outline: none;
+}
+
+.vd-spotlight-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.vd-spotlight-results {
+  max-height: 400px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 0;
+}
+
+.vd-spotlight-category {
+  padding: 8px 16px 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.vd-spotlight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.vd-spotlight-item:hover,
+.vd-spotlight-item.vd-selected {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.vd-spotlight-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.vd-spotlight-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.vd-spotlight-item-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vd-spotlight-item-description {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vd-spotlight-empty {
+  padding: 24px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -3,10 +3,12 @@
     <div class="demo-toolbar">
       <h1>Vue Desktop — Demo</h1>
       <button @click="openWindow">Open Window</button>
+      <span class="demo-hint">Press Cmd/Ctrl+K for Spotlight</span>
     </div>
     <div class="demo-desktop" ref="desktopRef">
       <WindowHost />
       <UISlot name="taskbar" />
+      <UISlot name="overlay" />
     </div>
   </div>
 </template>
@@ -23,6 +25,7 @@ import {
   createSnapPlugin,
   createPersistencePlugin,
   createStartMenuPlugin,
+  createSpotlightPlugin,
   type PersistedWindowInfo,
   type DesktopInstanceWithPersistence
 } from '@kiwiproject/vue-desktop'
@@ -151,6 +154,12 @@ desktop.installPlugin(createStartMenuPlugin({
   ]
 }))
 
+// Spotlight search (Cmd/Ctrl+K)
+desktop.installPlugin(createSpotlightPlugin({
+  placeholder: 'Search apps and windows...',
+  maxResults: 10
+}))
+
 provideDesktop(desktop)
 
 // Restore session on mount
@@ -210,6 +219,11 @@ body {
 }
 .demo-toolbar button:hover {
   background: #e8e8e8;
+}
+.demo-hint {
+  font-size: 12px;
+  color: #666;
+  margin-left: auto;
 }
 .demo-desktop {
   flex: 1;

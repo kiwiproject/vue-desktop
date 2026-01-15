@@ -57,3 +57,15 @@ export {
   type StartMenuPluginOptions,
   type DesktopInstanceWithStartMenu
 } from "./plugins/start-menu";
+export {
+  SpotlightPlugin,
+  createSpotlightPlugin,
+  Spotlight,
+  createAppsProvider,
+  createWindowsProvider,
+  type SpotlightItem,
+  type SpotlightProvider,
+  type SpotlightAPI,
+  type SpotlightPluginOptions,
+  type DesktopInstanceWithSpotlight
+} from "./plugins/spotlight";

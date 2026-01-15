@@ -88,6 +88,14 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 
     Status: implemented (2026-01-14) — Created `StartMenuPlugin` in `src/plugins/start-menu/`. Features: static app registration via options, dynamic registration via API, category grouping, shortcut hints. API via `desktop.startMenu`: `registerApp()`, `unregisterApp()`, `getApps()`, `getAppsByCategory()`, `open()`, `close()`, `toggle()`, `isOpen()`. Tests in `tests/start-menu.test.ts`.
 
+15.6. feat(plugin-spotlight): implement spotlight search plugin
+    - macOS Spotlight-style search dialog triggered by Cmd/Ctrl+K.
+    - Search through apps (from StartMenu) and open windows.
+    - Custom search providers for extensibility.
+    - Smart singleton handling (focuses existing singleton windows).
+
+    Status: implemented (2026-01-14) — Created `SpotlightPlugin` in `src/plugins/spotlight/`. Features: keyboard shortcut trigger (Cmd/Ctrl+K), built-in providers for apps and windows, custom provider registration, search by label/description/keywords, category grouping, keyboard navigation (arrows/enter/escape). API via `desktop.spotlight`: `open()`, `close()`, `toggle()`, `isOpen()`, `registerProvider()`, `unregisterProvider()`, `getProviders()`, `search()`. Tests in `tests/spotlight.test.ts`.
+
 16. chore: examples and demo improvements
     - Expand `examples/demo` to demonstrate multiple windows, taskbar, persistence, and plugins toggling.
 
