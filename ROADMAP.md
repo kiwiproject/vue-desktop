@@ -123,6 +123,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 17. test: add e2e-ish smoke tests for demo (optional)
     - Add simple Playwright or Puppeteer smoke test to ensure the demo boots and windows can be opened.
 
+    Status: implemented (2026-01-15) — Added Playwright e2e smoke tests in `e2e/smoke.spec.ts`. Tests cover: demo boot, window open/close/minimize/maximize/focus, taskbar interactions, start menu, menu bar dropdowns, context menu, spotlight search, and window dragging. Added `pnpm test:e2e` and `pnpm test:e2e:ui` scripts. Configured pnpm workspace for demo filter.
+
 18. docs: API docs and usage examples
     - Generate or write documentation for public APIs and plugin contract. Add top-level examples in README.
 
