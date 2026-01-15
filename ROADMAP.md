@@ -99,6 +99,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 16. chore: examples and demo improvements
     - Expand `examples/demo` to demonstrate multiple windows, taskbar, persistence, and plugins toggling.
 
+    Status: implemented (2026-01-14) — Enhanced demo with 7 window types (Sample, TextEditor, ImageViewer, ColorPicker, Counter, Help, About). Added toolbar controls (New Window, Help, Clear Session, Snap toggle). Help window shows all keyboard shortcuts, window features, and enabled plugins. Start menu expanded to 7 apps across General, Utilities, and System categories. Auto-shows Help on first visit.
+
 17. test: add e2e-ish smoke tests for demo (optional)
     - Add simple Playwright or Puppeteer smoke test to ensure the demo boots and windows can be opened.
 
