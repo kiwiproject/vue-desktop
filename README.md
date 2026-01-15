@@ -1,5 +1,9 @@
 # Vue Desktop
 
+[![CI](https://github.com/kiwiproject/vue-desktop/actions/workflows/ci.yml/badge.svg)](https://github.com/kiwiproject/vue-desktop/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@kiwiproject/vue-desktop.svg)](https://www.npmjs.com/package/@kiwiproject/vue-desktop)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A lightweight Vue 3 + TypeScript desktop-style window manager library with a plugin-based architecture.
 
 ## Features
@@ -16,9 +20,9 @@ A lightweight Vue 3 + TypeScript desktop-style window manager library with a plu
 ## Installation
 
 ```bash
-npm install @anthropic/vue-desktop
+npm install @kiwiproject/vue-desktop
 # or
-pnpm add @anthropic/vue-desktop
+pnpm add @kiwiproject/vue-desktop
 ```
 
 ## Quick Start
@@ -39,8 +43,8 @@ import {
   WindowHost,
   UISlot,
   TaskbarPlugin
-} from '@anthropic/vue-desktop'
-import '@anthropic/vue-desktop/styles.css'
+} from '@kiwiproject/vue-desktop'
+import '@kiwiproject/vue-desktop/styles.css'
 
 // Create a simple window component
 const MyWindow = defineComponent({
@@ -85,7 +89,7 @@ desktop.createWindow({
 Creates a new desktop instance that manages windows and plugins.
 
 ```ts
-import { createDesktop } from '@anthropic/vue-desktop'
+import { createDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 ```
@@ -217,7 +221,7 @@ Renders UI components registered to a specific slot by plugins.
 Displays a taskbar showing all open windows with click-to-focus/minimize behavior.
 
 ```ts
-import { TaskbarPlugin } from '@anthropic/vue-desktop'
+import { TaskbarPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(TaskbarPlugin)
 ```
@@ -229,7 +233,7 @@ The taskbar automatically appears at the bottom of the desktop. Requires `<UISlo
 Provides global keyboard shortcuts.
 
 ```ts
-import { createShortcutsPlugin } from '@anthropic/vue-desktop'
+import { createShortcutsPlugin } from '@kiwiproject/vue-desktop'
 
 // With default shortcuts
 desktop.installPlugin(createShortcutsPlugin())
@@ -268,7 +272,7 @@ desktop.shortcuts.getShortcuts()         // List all shortcuts
 Enables window snapping to edges, other windows, and grid.
 
 ```ts
-import { createSnapPlugin } from '@anthropic/vue-desktop'
+import { createSnapPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createSnapPlugin({
   edges: true,           // Snap to viewport edges
@@ -296,7 +300,7 @@ desktop.snap.getOptions()         // Get current options
 Saves and restores window state to localStorage (or custom storage).
 
 ```ts
-import { createPersistencePlugin } from '@anthropic/vue-desktop'
+import { createPersistencePlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createPersistencePlugin({
   storageKey: 'my-app-desktop',
@@ -331,7 +335,7 @@ desktop.persistence.isEnabled()         // Check if enabled
 
 **Custom Storage Adapter:**
 ```ts
-import { createPersistencePlugin, createChainedAdapter } from '@anthropic/vue-desktop'
+import { createPersistencePlugin, createChainedAdapter } from '@kiwiproject/vue-desktop'
 
 // Chain multiple adapters (first successful load wins, all get saves)
 const adapter = createChainedAdapter(
@@ -349,7 +353,7 @@ desktop.installPlugin(createPersistencePlugin({
 Adds a Start menu button to the taskbar for launching apps.
 
 ```ts
-import { createStartMenuPlugin } from '@anthropic/vue-desktop'
+import { createStartMenuPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createStartMenuPlugin({
   buttonLabel: 'Start',
@@ -389,7 +393,7 @@ desktop.startMenu.isOpen()               // Check if open
 Adds a Spotlight-style search dialog (Cmd/Ctrl+K).
 
 ```ts
-import { createSpotlightPlugin } from '@anthropic/vue-desktop'
+import { createSpotlightPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createSpotlightPlugin({
   placeholder: 'Search apps and windows...',
@@ -438,7 +442,7 @@ desktop.spotlight.getProviders()            // List providers
 Plugins are objects with a `name` and `install` function:
 
 ```ts
-import type { Plugin, DesktopInstance } from '@anthropic/vue-desktop'
+import type { Plugin, DesktopInstance } from '@kiwiproject/vue-desktop'
 
 const MyPlugin: Plugin = {
   name: 'my-plugin',
@@ -500,7 +504,7 @@ desktop.installPlugin(MyPlugin)
 Import the default styles:
 
 ```ts
-import '@anthropic/vue-desktop/styles.css'
+import '@kiwiproject/vue-desktop/styles.css'
 ```
 
 All classes are prefixed with `vd-` for easy customization:
@@ -542,7 +546,7 @@ import type {
   DesktopInstanceWithPersistence,
   DesktopInstanceWithStartMenu,
   DesktopInstanceWithSpotlight
-} from '@anthropic/vue-desktop'
+} from '@kiwiproject/vue-desktop'
 ```
 
 ## Development

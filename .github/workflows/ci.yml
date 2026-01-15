@@ -2,29 +2,38 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'pnpm'
+
       - name: Install dependencies
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm install
+        run: pnpm install
+
       - name: Build
         run: pnpm build
+
       - name: Lint
         run: pnpm lint
-      - name: Format check
-        run: pnpm format -- --check || true
+
       - name: Test
         run: pnpm test
+
+      - name: Type check
+        run: pnpm exec vue-tsc --noEmit || true

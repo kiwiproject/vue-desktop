@@ -112,6 +112,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 19. chore: CI coverage and badges
     - Ensure `pnpm build`, `pnpm lint`, `pnpm test` run in CI and add status badges to README.
 
+    Status: implemented (2026-01-14) — Updated CI workflow with pnpm/action-setup for proper caching, Node 20, build/lint/test steps. Updated release workflow with proper permissions and pnpm caching. Added badges to README: CI status, npm version, MIT license.
+
 20. chore(release): configure semantic-release and release pipeline
     - (Already added) Ensure `NPM_TOKEN` secret and publish config — verify dry-run release flow.
 
