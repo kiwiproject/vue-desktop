@@ -155,6 +155,7 @@ export default defineComponent({
                 mode: desktop.getMode(win.id!),
                 zIndex: 100 + index,
                 focused: desktop.getFocusedWindowId() === win.id,
+                menuBar: win.menuBar,
                 onClose: () => desktop.closeWindow(win.id!),
                 onFocus: () => desktop.focusWindow(win.id!),
                 onUpdateBounds: (bounds: Bounds) => desktop.updateBounds(win.id!, bounds),

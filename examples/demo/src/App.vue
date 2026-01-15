@@ -39,7 +39,8 @@ import {
   createContextMenuPlugin,
   type PersistedWindowInfo,
   type DesktopInstanceWithPersistence,
-  type DesktopInstanceWithSnap
+  type DesktopInstanceWithSnap,
+  type MenuBarDefinition
 } from '@kiwiproject/vue-desktop'
 import '@kiwiproject/vue-desktop/styles.css'
 
@@ -167,6 +168,7 @@ const HelpWindow = defineComponent({
         h('li', 'Right-click desktop for context menu'),
         h('li', 'Windows snap to edges and other windows'),
         h('li', 'Session persists across page refreshes'),
+        h('li', 'Per-window menu bars (see Text Editor)'),
       ]),
       h('h3', 'Plugins Enabled'),
       h('ul', [
@@ -293,7 +295,53 @@ desktop.installPlugin(createStartMenuPlugin({
         component: TextEditor,
         props: { initialContent: 'Hello, world!\n\nStart typing here...' },
         singletonKey: 'editor',
-        initialBounds: { x: 150, y: 100, width: 500, height: 400 }
+        initialBounds: { x: 150, y: 100, width: 500, height: 400 },
+        menuBar: [
+          {
+            id: 'file',
+            label: 'File',
+            items: [
+              { id: 'new', label: 'New', shortcut: 'Ctrl+N', action: () => alert('New file!') },
+              { id: 'open', label: 'Open...', shortcut: 'Ctrl+O', action: () => alert('Open file dialog') },
+              { id: 'sep1', label: '', separator: true },
+              { id: 'save', label: 'Save', shortcut: 'Ctrl+S', action: () => alert('File saved!') },
+              { id: 'saveas', label: 'Save As...', action: () => alert('Save As dialog') },
+              { id: 'sep2', label: '', separator: true },
+              { id: 'exit', label: 'Exit', action: () => { /* window will be closed by user */ } }
+            ]
+          },
+          {
+            id: 'edit',
+            label: 'Edit',
+            items: [
+              { id: 'undo', label: 'Undo', shortcut: 'Ctrl+Z', disabled: true },
+              { id: 'redo', label: 'Redo', shortcut: 'Ctrl+Y', disabled: true },
+              { id: 'sep1', label: '', separator: true },
+              { id: 'cut', label: 'Cut', shortcut: 'Ctrl+X', action: () => document.execCommand('cut') },
+              { id: 'copy', label: 'Copy', shortcut: 'Ctrl+C', action: () => document.execCommand('copy') },
+              { id: 'paste', label: 'Paste', shortcut: 'Ctrl+V', action: () => document.execCommand('paste') },
+              { id: 'sep2', label: '', separator: true },
+              { id: 'selectall', label: 'Select All', shortcut: 'Ctrl+A', action: () => document.execCommand('selectAll') }
+            ]
+          },
+          {
+            id: 'view',
+            label: 'View',
+            items: [
+              { id: 'zoomin', label: 'Zoom In', shortcut: 'Ctrl++', action: () => alert('Zoom in') },
+              { id: 'zoomout', label: 'Zoom Out', shortcut: 'Ctrl+-', action: () => alert('Zoom out') },
+              { id: 'sep1', label: '', separator: true },
+              { id: 'wordwrap', label: 'Word Wrap', action: () => alert('Toggle word wrap') }
+            ]
+          },
+          {
+            id: 'help',
+            label: 'Help',
+            items: [
+              { id: 'about', label: 'About Text Editor', action: () => alert('Text Editor v1.0\nA simple text editor demo.') }
+            ]
+          }
+        ] as MenuBarDefinition
       })
     },
     {
@@ -397,7 +445,35 @@ desktop.installPlugin(createContextMenuPlugin({
             icon: '📝',
             component: TextEditor,
             singletonKey: 'editor',
-            initialBounds: { x: 150, y: 100, width: 500, height: 400 }
+            initialBounds: { x: 150, y: 100, width: 500, height: 400 },
+            menuBar: [
+              {
+                id: 'file',
+                label: 'File',
+                items: [
+                  { id: 'new', label: 'New', shortcut: 'Ctrl+N', action: () => alert('New file!') },
+                  { id: 'open', label: 'Open...', shortcut: 'Ctrl+O', action: () => alert('Open file dialog') },
+                  { id: 'sep1', label: '', separator: true },
+                  { id: 'save', label: 'Save', shortcut: 'Ctrl+S', action: () => alert('File saved!') }
+                ]
+              },
+              {
+                id: 'edit',
+                label: 'Edit',
+                items: [
+                  { id: 'cut', label: 'Cut', shortcut: 'Ctrl+X' },
+                  { id: 'copy', label: 'Copy', shortcut: 'Ctrl+C' },
+                  { id: 'paste', label: 'Paste', shortcut: 'Ctrl+V' }
+                ]
+              },
+              {
+                id: 'help',
+                label: 'Help',
+                items: [
+                  { id: 'about', label: 'About', action: () => alert('Text Editor v1.0') }
+                ]
+              }
+            ] as MenuBarDefinition
           })
         }},
         { id: 'app-color', label: 'Color Picker', icon: '🎨', action: () => {

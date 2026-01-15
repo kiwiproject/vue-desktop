@@ -630,3 +630,106 @@
 .vd-context-menu-submenu {
   position: fixed;
 }
+
+/* Menu Bar */
+.vd-menu-bar {
+  display: flex;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  font-size: 13px;
+  user-select: none;
+}
+
+.vd-menu-bar-item {
+  padding: 4px 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.vd-menu-bar-item:hover,
+.vd-menu-bar-item-active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Menu Dropdown */
+.vd-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  padding: 4px 0;
+}
+
+.vd-menu-dropdown-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: -1px;
+}
+
+.vd-menu-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 24px 6px 12px;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.vd-menu-dropdown-item:hover,
+.vd-menu-dropdown-item.vd-selected {
+  background: #0078d4;
+  color: white;
+}
+
+.vd-menu-dropdown-item:hover .vd-menu-dropdown-shortcut,
+.vd-menu-dropdown-item.vd-selected .vd-menu-dropdown-shortcut {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.vd-menu-dropdown-item:hover .vd-menu-dropdown-arrow,
+.vd-menu-dropdown-item.vd-selected .vd-menu-dropdown-arrow {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.vd-menu-dropdown-item-disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.vd-menu-dropdown-icon {
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.vd-menu-dropdown-label {
+  flex: 1;
+}
+
+.vd-menu-dropdown-shortcut {
+  color: #888;
+  font-size: 12px;
+  margin-left: 24px;
+  flex-shrink: 0;
+}
+
+.vd-menu-dropdown-arrow {
+  color: #888;
+  font-size: 10px;
+}
+
+.vd-menu-dropdown-separator {
+  height: 1px;
+  background: #ddd;
+  margin: 4px 0;
+}
+
+/* Focused window menu bar */
+.vd-window-shell.vd-focused .vd-menu-bar {
+  background: #e8e8e8;
+}

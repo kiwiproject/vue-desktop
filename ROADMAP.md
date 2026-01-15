@@ -81,14 +81,14 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 
     Status: implemented (2026-01-14) — Created `PersistencePlugin` in `src/plugins/persistence/`. Features: automatic save/restore of window bounds and mode, debounced saves, localStorage adapter (default), memory adapter for testing, custom storage adapter support, configurable persist key via `getWindowKey`. API via `desktop.persistence`: `save()`, `load()`, `clear()`, `getWindowState()`, `isEnabled()`, `setEnabled()`. Tests in `tests/persistence.test.ts`.
 
-15.5. feat(plugin-start-menu): implement start menu plugin
+15.1. feat(plugin-start-menu): implement start menu plugin
     - Start menu button in taskbar with dropdown panel showing registered apps.
     - Apps grouped by category with optional keyboard shortcut hints.
     - Click app to open window via factory function.
 
     Status: implemented (2026-01-14) — Created `StartMenuPlugin` in `src/plugins/start-menu/`. Features: static app registration via options, dynamic registration via API, category grouping, shortcut hints. API via `desktop.startMenu`: `registerApp()`, `unregisterApp()`, `getApps()`, `getAppsByCategory()`, `open()`, `close()`, `toggle()`, `isOpen()`. Tests in `tests/start-menu.test.ts`.
 
-15.6. feat(plugin-spotlight): implement spotlight search plugin
+15.2. feat(plugin-spotlight): implement spotlight search plugin
     - macOS Spotlight-style search dialog triggered by Cmd/Ctrl+K.
     - Search through apps (from StartMenu) and open windows.
     - Custom search providers for extensibility.
@@ -96,7 +96,7 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 
     Status: implemented (2026-01-14) — Created `SpotlightPlugin` in `src/plugins/spotlight/`. Features: keyboard shortcut trigger (Cmd/Ctrl+K), built-in providers for apps and windows, custom provider registration, search by label/description/keywords, category grouping, keyboard navigation (arrows/enter/escape). API via `desktop.spotlight`: `open()`, `close()`, `toggle()`, `isOpen()`, `registerProvider()`, `unregisterProvider()`, `getProviders()`, `search()`. Tests in `tests/spotlight.test.ts`.
 
-15.7. feat(plugin-context-menu): implement context menu plugin
+15.3. feat(plugin-context-menu): implement context menu plugin
     - Right-click context menus on desktop background and window title bars.
     - Support for nested submenus with hover/arrow-key navigation.
     - Smart positioning to keep menus within viewport bounds.
@@ -104,6 +104,16 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
     - Dynamic menu builders (function returning items based on context).
 
     Status: implemented (2026-01-15) — Created `ContextMenuPlugin` in `src/plugins/context-menu/`. Features: desktop and window context menus, nested submenus, smart viewport positioning, keyboard navigation, static or dynamic menu items via builder functions. API via `desktop.contextMenu`: `show()`, `hide()`, `isOpen()`, `setDesktopMenu()`, `setWindowMenu()`. Default menus include window controls (minimize/maximize/close) and desktop actions (new window, refresh). Tests in `tests/context-menu.test.ts`.
+
+15.4. feat(ui): add window menu bar support
+    - Standard horizontal menu bar for windows (File | Edit | View style).
+    - Per-window menus via `menuBar` property in WindowDefinition.
+    - Keyboard shortcut hints displayed (e.g., "Save  Ctrl+S").
+    - Dynamic enable/disable via function returning items.
+    - Submenu support with hover/arrow-key navigation.
+    - Menu bar only shown if menuBar has items.
+
+    Status: implemented (2026-01-15) — Created `src/core/MenuBar.ts` Vue component with dropdown and submenu support. Added `MenuBarItem`, `MenuBarMenu`, and `MenuBarDefinition` types. WindowShell renders menu bar between header and body when defined. Includes CSS styling for menu bar, dropdowns, and hover states. Demo updated with Text Editor showing File/Edit/View/Help menus. Tests in `tests/menu-bar.test.ts`.
 
 16. chore: examples and demo improvements
     - Expand `examples/demo` to demonstrate multiple windows, taskbar, persistence, and plugins toggling.

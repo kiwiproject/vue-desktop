@@ -36,6 +36,39 @@ export interface WindowBehaviors {
   maximizable?: boolean;
 }
 
+/** A menu item within a dropdown */
+export interface MenuBarItem {
+  /** Unique identifier */
+  id: string;
+  /** Display label */
+  label: string;
+  /** Optional icon (emoji or string) */
+  icon?: string;
+  /** Keyboard shortcut hint (display only) */
+  shortcut?: string;
+  /** Action when clicked */
+  action?: () => void;
+  /** Nested submenu items */
+  children?: MenuBarItem[];
+  /** Whether item is disabled */
+  disabled?: boolean;
+  /** Separator after this item */
+  separator?: boolean;
+}
+
+/** A top-level menu (e.g., "File", "Edit", "View") */
+export interface MenuBarMenu {
+  /** Unique identifier */
+  id: string;
+  /** Display label */
+  label: string;
+  /** Menu items - can be static array or function for dynamic items */
+  items: MenuBarItem[] | (() => MenuBarItem[]);
+}
+
+/** Menu bar definition for a window */
+export type MenuBarDefinition = MenuBarMenu[];
+
 export interface WindowDefinition<Props = unknown> {
   id?: string;
   type: string;
@@ -47,6 +80,7 @@ export interface WindowDefinition<Props = unknown> {
   initialBounds?: Partial<Bounds>;
   constraints?: WindowConstraints;
   behaviors?: WindowBehaviors;
+  menuBar?: MenuBarDefinition;
   meta?: Record<string, unknown>;
 }
 

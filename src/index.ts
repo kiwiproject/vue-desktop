@@ -3,6 +3,7 @@ export * from "./core/DesktopInstance";
 export { default as WindowHost } from "./core/WindowHost";
 export { default as WindowShell } from "./core/WindowShell";
 export { default as UISlot } from "./core/UISlot";
+export { default as MenuBar } from "./core/MenuBar";
 export * from "./core/types";
 export * from "./core/bounds";
 

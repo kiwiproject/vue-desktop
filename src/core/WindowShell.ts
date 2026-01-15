@@ -1,6 +1,7 @@
 import { defineComponent, h, ref, onUnmounted, type PropType } from "vue";
-import type { Bounds, WindowBehaviors, WindowConstraints, WindowMode } from "./types";
+import type { Bounds, WindowBehaviors, WindowConstraints, WindowMode, MenuBarDefinition } from "./types";
 import { calcResize, type ResizeDirection } from "./bounds";
+import MenuBar from "./MenuBar";
 
 const RESIZE_DIRECTIONS: ResizeDirection[] = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
 
@@ -14,7 +15,8 @@ export default defineComponent({
     constraints: { type: Object as PropType<WindowConstraints>, default: () => ({}) },
     mode: { type: String as PropType<WindowMode>, default: "normal" },
     zIndex: { type: Number, default: 100 },
-    focused: { type: Boolean, default: false }
+    focused: { type: Boolean, default: false },
+    menuBar: { type: Array as PropType<MenuBarDefinition>, default: undefined }
   },
   emits: ["close", "focus", "updateBounds", "minimize", "maximize", "restore", "contextmenu"],
   setup(props, { slots, emit }) {
@@ -225,6 +227,7 @@ export default defineComponent({
               ])
             ]
           ),
+          props.menuBar && props.menuBar.length > 0 && h(MenuBar, { menus: props.menuBar }),
           h(
             "div",
             {
