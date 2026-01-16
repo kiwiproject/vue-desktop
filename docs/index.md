@@ -12,6 +12,7 @@ hero:
     - theme: alt
       text: View Demo
       link: /demo/
+      target: _blank
     - theme: alt
       text: GitHub
       link: https://github.com/kiwiproject/vue-desktop
