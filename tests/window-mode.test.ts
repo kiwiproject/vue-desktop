@@ -55,38 +55,38 @@ describe("Window mode management", () => {
     expect(restoredBounds).toEqual({ x: 50, y: 50, width: 300, height: 200 });
   });
 
-  it("emits window-minimized event", () => {
+  it("emits window:minimized event", () => {
     const d = createDesktop();
     const win = d.createWindow({ type: "t", title: "A", component: {} as never });
     let emitted: unknown = null;
-    d.on("window-minimized", (payload) => {
+    d.on("window:minimized", (payload) => {
       emitted = payload;
     });
     d.minimizeWindow(win.id!);
-    expect(emitted).toEqual({ id: win.id });
+    expect(emitted).toEqual({ windowId: win.id });
   });
 
-  it("emits window-maximized event", () => {
+  it("emits window:maximized event", () => {
     const d = createDesktop();
     const win = d.createWindow({ type: "t", title: "A", component: {} as never });
     let emitted: unknown = null;
-    d.on("window-maximized", (payload) => {
+    d.on("window:maximized", (payload) => {
       emitted = payload;
     });
     d.maximizeWindow(win.id!);
-    expect(emitted).toEqual({ id: win.id });
+    expect(emitted).toEqual({ windowId: win.id });
   });
 
-  it("emits window-restored event", () => {
+  it("emits window:restored event", () => {
     const d = createDesktop();
     const win = d.createWindow({ type: "t", title: "A", component: {} as never });
     d.minimizeWindow(win.id!);
     let emitted: unknown = null;
-    d.on("window-restored", (payload) => {
+    d.on("window:restored", (payload) => {
       emitted = payload;
     });
     d.restoreWindow(win.id!);
-    expect(emitted).toEqual({ id: win.id });
+    expect(emitted).toEqual({ windowId: win.id });
   });
 
   it("returns false for non-existent window", () => {

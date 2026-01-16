@@ -287,26 +287,26 @@ export function createPersistencePlugin(options: PersistencePluginOptions = {}):
 
       const handleBoundsChanged = (payload: unknown): void => {
         if (!persistBounds) return;
-        const { id, bounds } = payload as { id: string; bounds: Bounds };
-        updateWindowState(id, { bounds });
+        const { windowId, bounds } = payload as { windowId: string; bounds: Bounds };
+        updateWindowState(windowId, { bounds });
       };
 
       const handleWindowMaximized = (payload: unknown): void => {
         if (!persistMode) return;
-        const { id } = payload as { id: string };
-        updateWindowState(id, { mode: "maximized" as WindowMode });
+        const { windowId } = payload as { windowId: string };
+        updateWindowState(windowId, { mode: "maximized" as WindowMode });
       };
 
       const handleWindowMinimized = (payload: unknown): void => {
         if (!persistMode) return;
-        const { id } = payload as { id: string };
-        updateWindowState(id, { mode: "minimized" as WindowMode });
+        const { windowId } = payload as { windowId: string };
+        updateWindowState(windowId, { mode: "minimized" as WindowMode });
       };
 
       const handleWindowRestored = (payload: unknown): void => {
         if (!persistMode) return;
-        const { id } = payload as { id: string };
-        updateWindowState(id, { mode: "normal" as WindowMode });
+        const { windowId } = payload as { windowId: string };
+        updateWindowState(windowId, { mode: "normal" as WindowMode });
       };
 
       const handleWindowFocused = (): void => {
@@ -314,7 +314,7 @@ export function createPersistencePlugin(options: PersistencePluginOptions = {}):
       };
 
       const handleWindowClosed = (payload: unknown): void => {
-        const win = payload as WindowDefinition;
+        const { window: win } = payload as { windowId: string; window: WindowDefinition };
         removeFromOpenWindows(win);
         updateZOrder();
       };
@@ -324,13 +324,13 @@ export function createPersistencePlugin(options: PersistencePluginOptions = {}):
 
       // Subscribe to events
       const unsubscribers = [
-        desktop.on("window-created", handleWindowCreated),
-        desktop.on("window-bounds-changed", handleBoundsChanged),
-        desktop.on("window-maximized", handleWindowMaximized),
-        desktop.on("window-minimized", handleWindowMinimized),
-        desktop.on("window-restored", handleWindowRestored),
-        desktop.on("window-focused", handleWindowFocused),
-        desktop.on("window-closed", handleWindowClosed)
+        desktop.on("window:created", handleWindowCreated),
+        desktop.on("window:bounds", handleBoundsChanged),
+        desktop.on("window:maximized", handleWindowMaximized),
+        desktop.on("window:minimized", handleWindowMinimized),
+        desktop.on("window:restored", handleWindowRestored),
+        desktop.on("window:focused", handleWindowFocused),
+        desktop.on("window:closed", handleWindowClosed)
       ];
 
       // Expose persistence API

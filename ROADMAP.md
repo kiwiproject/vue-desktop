@@ -166,6 +166,14 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 23. refactor(api): stabilize public API & types for v1.0.0
     - Finalize public API surface, remove experimental flags, update changelog.
 
+    Status: implemented (2026-01-16) — API stabilization completed:
+    - Standardized event names to use colons (e.g., `window:created` instead of `window-created`)
+    - Standardized event payloads to use `windowId` instead of `id`
+    - Added missing `window:blurred` event for focus change tracking
+    - Created CHANGELOG.md documenting all breaking changes and features
+    - Updated persistence plugin handlers for new event payload format
+    - All 268 tests passing
+
 24. release: v1.0.0
     - Tag and publish first stable release once API stabilized and tests/CI pass.
 

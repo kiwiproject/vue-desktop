@@ -46,7 +46,7 @@ export class DesktopInstance {
     const win: WindowDefinition = { ...def, id, initialBounds: bounds };
     this._windows.value = [...this._windows.value, win];
     this._zOrder.value = [...this._zOrder.value, id];
-    this.emit("window-created", win);
+    this.emit("window:created", win);
     return win;
   }
 
@@ -64,15 +64,20 @@ export class DesktopInstance {
     const removed = this._windows.value[idx];
     this._windows.value = this._windows.value.filter((w) => w.id !== id);
     this._zOrder.value = this._zOrder.value.filter((z) => z !== id);
-    this.emit("window-closed", removed);
+    this.emit("window:closed", { windowId: id, window: removed });
     return true;
   }
 
   focusWindow(id: string) {
     if (!this._zOrder.value.includes(id)) return false;
+    // Emit blur event for previously focused window
+    const previouslyFocused = this.getFocusedWindowId();
+    if (previouslyFocused && previouslyFocused !== id) {
+      this.emit("window:blurred", { windowId: previouslyFocused });
+    }
     // move to top
     this._zOrder.value = [...this._zOrder.value.filter((z) => z !== id), id];
-    this.emit("window-focused", { id });
+    this.emit("window:focused", { windowId: id });
     return true;
   }
 
@@ -88,7 +93,7 @@ export class DesktopInstance {
     const oldBounds = this.getBounds(id);
     this._bounds.value.set(id, bounds);
     triggerRef(this._bounds);
-    this.emit("window-bounds-changed", { id, bounds, oldBounds });
+    this.emit("window:bounds", { windowId: id, bounds, oldBounds });
     return true;
   }
 
@@ -101,7 +106,7 @@ export class DesktopInstance {
     if (!win) return false;
     this._modes.value.set(id, "minimized");
     triggerRef(this._modes);
-    this.emit("window-minimized", { id });
+    this.emit("window:minimized", { windowId: id });
     return true;
   }
 
@@ -117,7 +122,7 @@ export class DesktopInstance {
     }
     this._modes.value.set(id, "maximized");
     triggerRef(this._modes);
-    this.emit("window-maximized", { id });
+    this.emit("window:maximized", { windowId: id });
     return true;
   }
 
@@ -131,7 +136,7 @@ export class DesktopInstance {
     }
     this._modes.value.set(id, "normal");
     triggerRef(this._modes);
-    this.emit("window-restored", { id });
+    this.emit("window:restored", { windowId: id });
     return true;
   }
 

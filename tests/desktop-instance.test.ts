@@ -25,9 +25,38 @@ describe('DesktopInstance registry', () => {
   it('emits lifecycle events', () => {
     const d = createDesktop()
     let created: any = null
-    d.on('window-created', (p) => { created = p })
+    d.on('window:created', (p) => { created = p })
     const w = d.createWindow({ type: 't', title: 'C', component: {} as any })
     expect(created).toBeDefined()
     expect(created.id).toBe(w.id)
+  })
+
+  it('emits window:blurred when focus changes', () => {
+    const d = createDesktop()
+    const a = d.createWindow({ type: 't', title: 'A', component: {} as any })
+    const b = d.createWindow({ type: 't', title: 'B', component: {} as any })
+
+    d.focusWindow(a.id!)
+
+    let blurred: any = null
+    d.on('window:blurred', (p) => { blurred = p })
+
+    d.focusWindow(b.id!)
+
+    expect(blurred).toEqual({ windowId: a.id })
+  })
+
+  it('does not emit window:blurred when focusing the same window', () => {
+    const d = createDesktop()
+    const a = d.createWindow({ type: 't', title: 'A', component: {} as any })
+
+    d.focusWindow(a.id!)
+
+    let blurred: any = null
+    d.on('window:blurred', (p) => { blurred = p })
+
+    d.focusWindow(a.id!)
+
+    expect(blurred).toBeNull()
   })
 })

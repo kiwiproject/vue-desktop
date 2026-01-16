@@ -124,7 +124,7 @@ describe("Plugin system", () => {
       const plugin: Plugin = {
         name: "event-plugin",
         install: (desktop) => {
-          return desktop.on("window-created", eventHandler);
+          return desktop.on("window:created", eventHandler);
         }
       };
 
@@ -141,7 +141,7 @@ describe("Plugin system", () => {
       const plugin: Plugin = {
         name: "event-plugin",
         install: (desktop) => {
-          return desktop.on("window-created", eventHandler);
+          return desktop.on("window:created", eventHandler);
         }
       };
 
