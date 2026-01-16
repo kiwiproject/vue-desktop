@@ -174,6 +174,20 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
     - Updated persistence plugin handlers for new event payload format
     - All 268 tests passing
 
+23.1. docs: set up VitePress documentation site with GitHub Pages
+    - Create comprehensive documentation with VitePress
+    - Deploy docs and live demo to GitHub Pages
+
+    Status: implemented (2026-01-16) — Documentation site created:
+    - VitePress setup in `docs/` with full configuration
+    - Guide pages: Getting Started, Core Concepts, Window Definition, Window Management, Keyboard Shortcuts, Styling, Creating Plugins, TypeScript
+    - API reference: DesktopInstance, Components, Types, Events
+    - Plugin documentation for all 7 plugins
+    - GitHub Actions workflow for automatic deployment
+    - Live demo configured for `/vue-desktop/demo/` path
+    - Docs available at: https://kiwiproject.github.io/vue-desktop/
+    - Demo available at: https://kiwiproject.github.io/vue-desktop/demo/
+
 24. release: v1.0.0
     - Tag and publish first stable release once API stabilized and tests/CI pass.
 
