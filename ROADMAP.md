@@ -138,6 +138,8 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 20. chore(release): configure semantic-release and release pipeline
     - (Already added) Ensure `NPM_TOKEN` secret and publish config — verify dry-run release flow.
 
+    Status: verified (2026-01-15) — Fixed package.json module/types paths, added repository URLs, removed duplicate release config. Semantic-release dry-run validates all plugins load correctly. Ready for automated releases on push to main.
+
 21. perf/accessibility: polish and accessibility checks
     - Audit keyboard navigation and ARIA attributes for windows and controls.
 
