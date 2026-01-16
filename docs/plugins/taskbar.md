@@ -5,7 +5,7 @@ Displays a taskbar showing all open windows with click-to-focus functionality.
 ## Installation
 
 ```ts
-import { TaskbarPlugin } from '@anthropic/vue-desktop'
+import { TaskbarPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(TaskbarPlugin)
 ```
@@ -89,7 +89,7 @@ For complete control, create your own taskbar component:
 ```vue
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useDesktop } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = useDesktop()
 

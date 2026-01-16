@@ -6,12 +6,12 @@ Enables window snapping to viewport edges, other windows, and grid positions.
 
 ```ts
 // With default options
-import { SnapPlugin } from '@anthropic/vue-desktop'
+import { SnapPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(SnapPlugin)
 
 // Or with custom options
-import { createSnapPlugin } from '@anthropic/vue-desktop'
+import { createSnapPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createSnapPlugin({
   threshold: 20,
@@ -63,7 +63,7 @@ Windows snap to grid positions during drag and resize.
 After installation, access the API via `desktop.snap`:
 
 ```ts
-import type { DesktopWithSnap } from '@anthropic/vue-desktop'
+import type { DesktopWithSnap } from '@kiwiproject/vue-desktop'
 
 const { snap } = desktop as DesktopWithSnap
 ```
@@ -117,7 +117,7 @@ These functions are exported for use in custom implementations:
 Snap a value to a target if within threshold.
 
 ```ts
-import { snapToValue } from '@anthropic/vue-desktop'
+import { snapToValue } from '@kiwiproject/vue-desktop'
 
 const snapped = snapToValue(98, 100, 10)
 // Returns 100 (98 is within 10 of 100)
@@ -131,7 +131,7 @@ const notSnapped = snapToValue(85, 100, 10)
 Snap a value to the nearest grid position.
 
 ```ts
-import { snapToGrid } from '@anthropic/vue-desktop'
+import { snapToGrid } from '@kiwiproject/vue-desktop'
 
 const snapped = snapToGrid(73, 50)
 // Returns 50 (nearest multiple of 50)
@@ -145,7 +145,7 @@ const snapped2 = snapToGrid(88, 50)
 Snap bounds to viewport edges.
 
 ```ts
-import { snapToEdges } from '@anthropic/vue-desktop'
+import { snapToEdges } from '@kiwiproject/vue-desktop'
 
 const snapped = snapToEdges(
   { x: 8, y: 12, width: 400, height: 300 },
@@ -160,7 +160,7 @@ const snapped = snapToEdges(
 Snap bounds to align with other windows.
 
 ```ts
-import { snapToWindows } from '@anthropic/vue-desktop'
+import { snapToWindows } from '@kiwiproject/vue-desktop'
 
 const otherWindows = [
   { id: 'win1', x: 0, y: 0, width: 400, height: 300 },
@@ -182,7 +182,7 @@ const snapped = snapToWindows(
 Apply all snapping logic.
 
 ```ts
-import { applySnapping } from '@anthropic/vue-desktop'
+import { applySnapping } from '@kiwiproject/vue-desktop'
 
 const snapped = applySnapping(
   { x: 8, y: 12, width: 400, height: 300 },
@@ -198,8 +198,8 @@ const snapped = applySnapping(
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useDesktop } from '@anthropic/vue-desktop'
-import type { DesktopWithSnap } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
+import type { DesktopWithSnap } from '@kiwiproject/vue-desktop'
 
 const desktop = useDesktop() as DesktopWithSnap
 const snapEnabled = ref(desktop.snap?.isEnabled() ?? false)

@@ -27,13 +27,13 @@ import type {
   PersistencePluginOptions,
   SpotlightProvider,
   ContextMenuItem
-} from '@anthropic/vue-desktop'
+} from '@kiwiproject/vue-desktop'
 ```
 
 ## Window Definition
 
 ```ts
-import type { WindowDefinition, Bounds } from '@anthropic/vue-desktop'
+import type { WindowDefinition, Bounds } from '@kiwiproject/vue-desktop'
 import type { Component } from 'vue'
 
 // Basic window
@@ -92,7 +92,7 @@ desktop.createWindow({
 ### Basic Plugin
 
 ```ts
-import type { Plugin, DesktopInstance } from '@anthropic/vue-desktop'
+import type { Plugin, DesktopInstance } from '@kiwiproject/vue-desktop'
 
 const MyPlugin: Plugin = {
   name: 'my-plugin',
@@ -108,7 +108,7 @@ const MyPlugin: Plugin = {
 ### Plugin with Extended API
 
 ```ts
-import type { Plugin, DesktopInstance } from '@anthropic/vue-desktop'
+import type { Plugin, DesktopInstance } from '@kiwiproject/vue-desktop'
 
 // Define your plugin's API
 interface MyPluginAPI {
@@ -152,7 +152,7 @@ desktop.myPlugin?.enable()
 ## Event Payloads
 
 ```ts
-import type { WindowDefinition, Bounds } from '@anthropic/vue-desktop'
+import type { WindowDefinition, Bounds } from '@kiwiproject/vue-desktop'
 
 // window:created
 desktop.on('window:created', (window: WindowDefinition) => {
@@ -185,7 +185,7 @@ desktop.on('window:focused', (payload: { windowId: string }) => {
 ## Menu Bar Types
 
 ```ts
-import type { MenuBarDefinition, MenuBarMenu, MenuBarItem } from '@anthropic/vue-desktop'
+import type { MenuBarDefinition, MenuBarMenu, MenuBarItem } from '@kiwiproject/vue-desktop'
 
 const menuBar: MenuBarDefinition = [
   {
@@ -225,8 +225,8 @@ const dynamicMenu: MenuBarMenu = {
 ## Shortcut Types
 
 ```ts
-import type { ShortcutDefinition } from '@anthropic/vue-desktop'
-import { parseShortcut, matchesShortcut } from '@anthropic/vue-desktop'
+import type { ShortcutDefinition } from '@kiwiproject/vue-desktop'
+import { parseShortcut, matchesShortcut } from '@kiwiproject/vue-desktop'
 
 const shortcut: ShortcutDefinition = {
   key: 's',
@@ -255,7 +255,7 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
 For reusable components with typed window props:
 
 ```ts
-import type { WindowDefinition } from '@anthropic/vue-desktop'
+import type { WindowDefinition } from '@kiwiproject/vue-desktop'
 
 // A function that creates windows with specific props
 function createDocumentWindow<T extends object>(

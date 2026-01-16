@@ -22,7 +22,7 @@ import {
   TaskbarPlugin,
   ShortcutsPlugin,
   SnapPlugin
-} from '@anthropic/vue-desktop'
+} from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 
@@ -31,7 +31,7 @@ desktop.installPlugin(TaskbarPlugin)
 desktop.installPlugin(ShortcutsPlugin)
 
 // Or use factory functions for custom options
-import { createSnapPlugin } from '@anthropic/vue-desktop'
+import { createSnapPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createSnapPlugin({
   threshold: 20,

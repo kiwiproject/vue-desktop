@@ -5,7 +5,7 @@
 Import the default styles in your app:
 
 ```ts
-import '@anthropic/vue-desktop/styles.css'
+import '@kiwiproject/vue-desktop/styles.css'
 ```
 
 ## CSS Custom Properties
@@ -189,7 +189,7 @@ For complete control, create a custom WindowShell:
 
 ```vue
 <script setup lang="ts">
-import { useDesktop } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
 
 const props = defineProps<{
   windowId: string

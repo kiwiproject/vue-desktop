@@ -6,12 +6,12 @@ Adds customizable keyboard shortcuts for window management.
 
 ```ts
 // With default shortcuts
-import { ShortcutsPlugin } from '@anthropic/vue-desktop'
+import { ShortcutsPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(ShortcutsPlugin)
 
 // Or with custom options
-import { createShortcutsPlugin } from '@anthropic/vue-desktop'
+import { createShortcutsPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createShortcutsPlugin({
   shortcuts: [
@@ -50,7 +50,7 @@ interface ShortcutDefinition {
 After installation, access the API via `desktop.shortcuts`:
 
 ```ts
-import type { DesktopWithShortcuts } from '@anthropic/vue-desktop'
+import type { DesktopWithShortcuts } from '@kiwiproject/vue-desktop'
 
 const { shortcuts } = desktop as DesktopWithShortcuts
 ```
@@ -103,7 +103,7 @@ const all = shortcuts.getShortcuts()
 Parse a shortcut string into a definition.
 
 ```ts
-import { parseShortcut } from '@anthropic/vue-desktop'
+import { parseShortcut } from '@kiwiproject/vue-desktop'
 
 const shortcut = parseShortcut('ctrl+shift+s')
 // { key: 's', ctrl: true, shift: true, alt: false, meta: false }
@@ -114,7 +114,7 @@ const shortcut = parseShortcut('ctrl+shift+s')
 Check if a keyboard event matches a shortcut.
 
 ```ts
-import { matchesShortcut } from '@anthropic/vue-desktop'
+import { matchesShortcut } from '@kiwiproject/vue-desktop'
 
 document.addEventListener('keydown', (e) => {
   if (matchesShortcut(e, { key: 's', ctrl: true })) {

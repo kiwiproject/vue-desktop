@@ -12,7 +12,7 @@ The `DesktopInstance` is the central manager for all windows. It handles:
 - **Plugins**: Installing and managing extensions
 
 ```ts
-import { createDesktop } from '@anthropic/vue-desktop'
+import { createDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 ```
@@ -40,7 +40,7 @@ vue-desktop uses Vue's provide/inject for dependency injection:
 ```vue
 <!-- App.vue (root) -->
 <script setup>
-import { createDesktop, provideDesktop } from '@anthropic/vue-desktop'
+import { createDesktop, provideDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 provideDesktop(desktop) // Makes desktop available to all children
@@ -50,7 +50,7 @@ provideDesktop(desktop) // Makes desktop available to all children
 ```vue
 <!-- AnyChild.vue -->
 <script setup>
-import { useDesktop } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = useDesktop() // Get the desktop instance
 desktop.createWindow({ ... })
@@ -86,7 +86,7 @@ Available events:
 Plugins extend the desktop with additional features:
 
 ```ts
-import type { Plugin } from '@anthropic/vue-desktop'
+import type { Plugin } from '@kiwiproject/vue-desktop'
 
 const MyPlugin: Plugin = {
   name: 'my-plugin',

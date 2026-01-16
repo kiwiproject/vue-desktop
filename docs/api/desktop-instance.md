@@ -5,7 +5,7 @@ The central manager for all windows and desktop state.
 ## Creating an Instance
 
 ```ts
-import { createDesktop } from '@anthropic/vue-desktop'
+import { createDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 ```
@@ -291,7 +291,7 @@ Installs a plugin.
 - **Returns:** `boolean` - `true` if installed, `false` if already installed
 
 ```ts
-import { TaskbarPlugin } from '@anthropic/vue-desktop'
+import { TaskbarPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(TaskbarPlugin)
 ```

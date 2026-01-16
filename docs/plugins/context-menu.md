@@ -5,7 +5,7 @@ Adds right-click context menus for the desktop and window title bars.
 ## Installation
 
 ```ts
-import { ContextMenuPlugin } from '@anthropic/vue-desktop'
+import { ContextMenuPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(ContextMenuPlugin)
 ```
@@ -41,7 +41,7 @@ Render the context menu in the overlay slot:
 After installation, access the API via `desktop.contextMenu`:
 
 ```ts
-import type { DesktopWithContextMenu } from '@anthropic/vue-desktop'
+import type { DesktopWithContextMenu } from '@kiwiproject/vue-desktop'
 
 const { contextMenu } = desktop as DesktopWithContextMenu
 ```
@@ -165,8 +165,8 @@ Add context menus to your own components:
 
 ```vue
 <script setup lang="ts">
-import { useDesktop } from '@anthropic/vue-desktop'
-import type { DesktopWithContextMenu } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
+import type { DesktopWithContextMenu } from '@kiwiproject/vue-desktop'
 
 const desktop = useDesktop() as DesktopWithContextMenu
 

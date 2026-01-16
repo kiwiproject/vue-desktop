@@ -19,7 +19,7 @@ interface Plugin {
 The simplest plugin just subscribes to events:
 
 ```ts
-import type { Plugin } from '@anthropic/vue-desktop'
+import type { Plugin } from '@kiwiproject/vue-desktop'
 
 export const LoggerPlugin: Plugin = {
   name: 'logger',
@@ -49,7 +49,7 @@ export const LoggerPlugin: Plugin = {
 Use a factory function for configurable plugins:
 
 ```ts
-import type { Plugin } from '@anthropic/vue-desktop'
+import type { Plugin } from '@kiwiproject/vue-desktop'
 
 interface AutoSaveOptions {
   interval: number  // ms between saves
@@ -84,7 +84,7 @@ Register UI components to render in slots:
 
 ```ts
 import { defineComponent, h, ref } from 'vue'
-import type { Plugin } from '@anthropic/vue-desktop'
+import type { Plugin } from '@kiwiproject/vue-desktop'
 
 const ClockWidget = defineComponent({
   setup() {
@@ -118,7 +118,7 @@ export const ClockPlugin: Plugin = {
 Add custom methods to the desktop instance:
 
 ```ts
-import type { Plugin, DesktopInstance } from '@anthropic/vue-desktop'
+import type { Plugin, DesktopInstance } from '@kiwiproject/vue-desktop'
 
 interface CounterAPI {
   getCount(): number
@@ -162,7 +162,7 @@ console.log(desktop.counter?.getStats())
 Wrap existing methods to add behavior:
 
 ```ts
-import type { Plugin } from '@anthropic/vue-desktop'
+import type { Plugin } from '@kiwiproject/vue-desktop'
 
 export function createAlwaysOnTopPlugin(): Plugin {
   return {

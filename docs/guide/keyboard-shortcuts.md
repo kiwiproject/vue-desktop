@@ -16,7 +16,7 @@ The `WindowHost` component includes these default keyboard handlers:
 The `ShortcutsPlugin` adds more keyboard shortcuts:
 
 ```ts
-import { ShortcutsPlugin } from '@anthropic/vue-desktop'
+import { ShortcutsPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(ShortcutsPlugin)
 ```
@@ -34,7 +34,7 @@ desktop.installPlugin(ShortcutsPlugin)
 Create a plugin with custom shortcuts:
 
 ```ts
-import { createShortcutsPlugin } from '@anthropic/vue-desktop'
+import { createShortcutsPlugin } from '@kiwiproject/vue-desktop'
 
 const shortcuts = createShortcutsPlugin({
   shortcuts: [
@@ -107,7 +107,7 @@ Shortcuts can be specified as strings:
 'ctrl+shift+s'
 
 // Parse a shortcut string
-import { parseShortcut } from '@anthropic/vue-desktop'
+import { parseShortcut } from '@kiwiproject/vue-desktop'
 
 const shortcut = parseShortcut('ctrl+shift+s')
 // { key: 's', ctrl: true, shift: true, alt: false, meta: false }
@@ -118,7 +118,7 @@ const shortcut = parseShortcut('ctrl+shift+s')
 Check if a keyboard event matches a shortcut:
 
 ```ts
-import { matchesShortcut } from '@anthropic/vue-desktop'
+import { matchesShortcut } from '@kiwiproject/vue-desktop'
 
 document.addEventListener('keydown', (event) => {
   if (matchesShortcut(event, { key: 's', ctrl: true })) {
@@ -135,7 +135,7 @@ Handle shortcuts within a window component:
 ```vue
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
-import { matchesShortcut } from '@anthropic/vue-desktop'
+import { matchesShortcut } from '@kiwiproject/vue-desktop'
 
 function handleKeydown(e: KeyboardEvent) {
   if (matchesShortcut(e, { key: 's', ctrl: true })) {
@@ -170,7 +170,7 @@ The `SpotlightPlugin` adds a quick search dialog:
 | `↑` / `↓` | Navigate results |
 
 ```ts
-import { SpotlightPlugin } from '@anthropic/vue-desktop'
+import { SpotlightPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(SpotlightPlugin)
 ```

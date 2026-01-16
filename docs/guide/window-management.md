@@ -176,7 +176,7 @@ unsubscribe()
 ```vue
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useDesktop } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = useDesktop()
 

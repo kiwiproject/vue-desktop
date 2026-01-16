@@ -5,15 +5,15 @@
 ::: code-group
 
 ```bash [npm]
-npm install @anthropic/vue-desktop
+npm install @kiwiproject/vue-desktop
 ```
 
 ```bash [pnpm]
-pnpm add @anthropic/vue-desktop
+pnpm add @kiwiproject/vue-desktop
 ```
 
 ```bash [yarn]
-yarn add @anthropic/vue-desktop
+yarn add @kiwiproject/vue-desktop
 ```
 
 :::
@@ -25,7 +25,7 @@ yarn add @anthropic/vue-desktop
 The desktop instance manages all windows and their state.
 
 ```ts
-import { createDesktop } from '@anthropic/vue-desktop'
+import { createDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 ```
@@ -36,8 +36,8 @@ Use Vue's provide/inject to make the desktop available to all components.
 
 ```vue
 <script setup lang="ts">
-import { createDesktop, provideDesktop, WindowHost } from '@anthropic/vue-desktop'
-import '@anthropic/vue-desktop/styles.css'
+import { createDesktop, provideDesktop, WindowHost } from '@kiwiproject/vue-desktop'
+import '@kiwiproject/vue-desktop/styles.css'
 
 const desktop = createDesktop()
 provideDesktop(desktop)
@@ -53,7 +53,7 @@ provideDesktop(desktop)
 Create windows programmatically from anywhere in your app.
 
 ```ts
-import { useDesktop } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
 import MyComponent from './MyComponent.vue'
 
 const desktop = useDesktop()
@@ -76,7 +76,7 @@ import {
   TaskbarPlugin,
   ShortcutsPlugin,
   SnapPlugin
-} from '@anthropic/vue-desktop'
+} from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 
@@ -102,8 +102,8 @@ import {
   TaskbarPlugin,
   ShortcutsPlugin,
   createSnapPlugin
-} from '@anthropic/vue-desktop'
-import '@anthropic/vue-desktop/styles.css'
+} from '@kiwiproject/vue-desktop'
+import '@kiwiproject/vue-desktop/styles.css'
 import TextEditor from './TextEditor.vue'
 import ImageViewer from './ImageViewer.vue'
 

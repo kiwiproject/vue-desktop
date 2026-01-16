@@ -5,7 +5,7 @@ Adds a quick search dialog for finding and launching apps, windows, and custom r
 ## Installation
 
 ```ts
-import { SpotlightPlugin } from '@anthropic/vue-desktop'
+import { SpotlightPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(SpotlightPlugin)
 ```
@@ -59,7 +59,7 @@ Searches through open windows by title:
 After installation, access the API via `desktop.spotlight`:
 
 ```ts
-import type { DesktopWithSpotlight } from '@anthropic/vue-desktop'
+import type { DesktopWithSpotlight } from '@kiwiproject/vue-desktop'
 
 const { spotlight } = desktop as DesktopWithSpotlight
 ```

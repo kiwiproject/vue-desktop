@@ -6,12 +6,12 @@ Saves and restores window state (bounds, mode, session) to storage.
 
 ```ts
 // With default options (localStorage)
-import { PersistencePlugin } from '@anthropic/vue-desktop'
+import { PersistencePlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(PersistencePlugin)
 
 // Or with custom options
-import { createPersistencePlugin } from '@anthropic/vue-desktop'
+import { createPersistencePlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createPersistencePlugin({
   storageKey: 'my-app-desktop',
@@ -87,7 +87,7 @@ createPersistencePlugin({
 After installation, access the API via `desktop.persistence`:
 
 ```ts
-import type { DesktopWithPersistence } from '@anthropic/vue-desktop'
+import type { DesktopWithPersistence } from '@kiwiproject/vue-desktop'
 
 const { persistence } = desktop as DesktopWithPersistence
 ```
@@ -151,7 +151,7 @@ persistence.setEnabled(true)   // Resume
 For testing or non-persistent use:
 
 ```ts
-import { createMemoryStorageAdapter } from '@anthropic/vue-desktop'
+import { createMemoryStorageAdapter } from '@kiwiproject/vue-desktop'
 
 createPersistencePlugin({
   storage: createMemoryStorageAdapter()
@@ -167,7 +167,7 @@ import {
   createChainedAdapter,
   createLocalStorageAdapter,
   createMemoryStorageAdapter
-} from '@anthropic/vue-desktop'
+} from '@kiwiproject/vue-desktop'
 
 createPersistencePlugin({
   storage: createChainedAdapter([
@@ -220,7 +220,7 @@ createPersistencePlugin({
 import {
   createDesktop,
   createPersistencePlugin
-} from '@anthropic/vue-desktop'
+} from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 

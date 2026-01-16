@@ -8,7 +8,7 @@ Container component that renders all windows.
 
 ```vue
 <script setup>
-import { WindowHost } from '@anthropic/vue-desktop'
+import { WindowHost } from '@kiwiproject/vue-desktop'
 </script>
 
 <template>
@@ -79,7 +79,7 @@ Renders UI components registered for a specific slot.
 
 ```vue
 <script setup>
-import { UISlot } from '@anthropic/vue-desktop'
+import { UISlot } from '@kiwiproject/vue-desktop'
 </script>
 
 <template>
@@ -107,7 +107,7 @@ import { UISlot } from '@anthropic/vue-desktop'
 
 ```vue
 <script setup>
-import { WindowHost, UISlot, TaskbarPlugin } from '@anthropic/vue-desktop'
+import { WindowHost, UISlot, TaskbarPlugin } from '@kiwiproject/vue-desktop'
 
 // Install taskbar plugin (registers to 'taskbar' slot)
 desktop.installPlugin(TaskbarPlugin)
@@ -130,7 +130,7 @@ desktop.installPlugin(TaskbarPlugin)
 Creates a new desktop instance.
 
 ```ts
-import { createDesktop } from '@anthropic/vue-desktop'
+import { createDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 ```
@@ -144,7 +144,7 @@ const desktop = createDesktop()
 Provides the desktop instance to child components via Vue's provide/inject.
 
 ```ts
-import { createDesktop, provideDesktop } from '@anthropic/vue-desktop'
+import { createDesktop, provideDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = createDesktop()
 provideDesktop(desktop)
@@ -160,7 +160,7 @@ provideDesktop(desktop)
 Injects the desktop instance in a child component.
 
 ```ts
-import { useDesktop } from '@anthropic/vue-desktop'
+import { useDesktop } from '@kiwiproject/vue-desktop'
 
 const desktop = useDesktop()
 desktop.createWindow({ ... })
@@ -183,8 +183,8 @@ import {
   UISlot,
   TaskbarPlugin,
   SpotlightPlugin
-} from '@anthropic/vue-desktop'
-import '@anthropic/vue-desktop/styles.css'
+} from '@kiwiproject/vue-desktop'
+import '@kiwiproject/vue-desktop/styles.css'
 import MyApp from './MyApp.vue'
 
 // Create and configure desktop

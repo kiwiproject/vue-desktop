@@ -5,7 +5,7 @@ Adds an application launcher with categories, similar to the Windows Start Menu.
 ## Installation
 
 ```ts
-import { createStartMenuPlugin } from '@anthropic/vue-desktop'
+import { createStartMenuPlugin } from '@kiwiproject/vue-desktop'
 
 desktop.installPlugin(createStartMenuPlugin({
   apps: [
@@ -64,7 +64,7 @@ The start menu button appears on the left side of the taskbar.
 After installation, access the API via `desktop.startMenu`:
 
 ```ts
-import type { DesktopWithStartMenu } from '@anthropic/vue-desktop'
+import type { DesktopWithStartMenu } from '@kiwiproject/vue-desktop'
 
 const { startMenu } = desktop as DesktopWithStartMenu
 ```
