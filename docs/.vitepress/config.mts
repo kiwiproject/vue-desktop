@@ -74,7 +74,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/anthropics/vue-desktop' }
+      { icon: 'github', link: 'https://github.com/kiwiproject/vue-desktop' }
     ],
 
     footer: {
