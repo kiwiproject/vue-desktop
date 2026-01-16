@@ -156,6 +156,13 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 22. feat: plugin marketplace / examples collection
     - Create separate `plugins/` examples and docs showing how to author plugins.
 
+    Status: implemented (2026-01-15) — Created `examples/plugins/` with 4 example plugins:
+    - `clock-plugin` (beginner) - UI overlay with registerUI()
+    - `window-logger-plugin` (beginner) - Event subscription pattern
+    - `window-counter-plugin` (intermediate) - Desktop API extension with TypeScript
+    - `always-on-top-plugin` (advanced) - Method wrapping pattern
+    Each plugin has README with usage examples, code walkthrough, and key concepts.
+
 23. refactor(api): stabilize public API & types for v1.0.0
     - Finalize public API surface, remove experimental flags, update changelog.
 
