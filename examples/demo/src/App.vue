@@ -137,7 +137,7 @@ const AboutDialog = defineComponent({
       ]),
       h('p', { class: 'about-link' }, [
         'GitHub: ',
-        h('a', { href: 'https://github.com/anthropics/vue-desktop', target: '_blank' }, 'anthropics/vue-desktop')
+        h('a', { href: 'https://github.com/kiwiproject/vue-desktop', target: '_blank' }, 'kiwiproject/vue-desktop')
       ])
     ])
   }
