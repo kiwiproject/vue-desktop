@@ -14,7 +14,7 @@ hero:
       link: /demo/
     - theme: alt
       text: GitHub
-      link: https://github.com/anthropics/vue-desktop
+      link: https://github.com/kiwiproject/vue-desktop
 
 features:
   - icon: 🪟
@@ -41,8 +41,8 @@ features:
 
 ```vue
 <script setup lang="ts">
-import { createDesktop, provideDesktop, WindowHost, TaskbarPlugin } from '@anthropic/vue-desktop'
-import '@anthropic/vue-desktop/styles.css'
+import { createDesktop, provideDesktop, WindowHost, TaskbarPlugin } from '@kiwiproject/vue-desktop'
+import '@kiwiproject/vue-desktop/styles.css'
 import MyApp from './MyApp.vue'
 
 const desktop = createDesktop()
