@@ -76,10 +76,13 @@ export default defineComponent({
           {
             class: ["vd-start-button", isOpen.value && "vd-open"],
             onClick: handleToggle,
-            type: "button"
+            type: "button",
+            "aria-haspopup": "menu",
+            "aria-expanded": isOpen.value,
+            "aria-label": props.buttonLabel || "Start menu"
           },
           [
-            h("span", { class: "vd-start-button-icon" }, props.buttonIcon),
+            h("span", { class: "vd-start-button-icon", "aria-hidden": true }, props.buttonIcon),
             props.buttonLabel && h("span", { class: "vd-start-button-label" }, props.buttonLabel)
           ]
         )
@@ -94,7 +97,12 @@ export default defineComponent({
           // Category header (if category exists)
           if (category) {
             menuItems.push(
-              h("div", { class: "vd-start-menu-category", key: `cat-${category}` }, category)
+              h("div", {
+                class: "vd-start-menu-category",
+                key: `cat-${category}`,
+                role: "presentation",
+                "aria-hidden": true
+              }, category)
             );
           }
 
@@ -107,12 +115,13 @@ export default defineComponent({
                   class: "vd-start-menu-item",
                   key: app.id,
                   onClick: () => handleAppClick(app),
-                  type: "button"
+                  type: "button",
+                  role: "menuitem"
                 },
                 [
-                  app.icon && h("span", { class: "vd-start-menu-icon" }, app.icon),
+                  app.icon && h("span", { class: "vd-start-menu-icon", "aria-hidden": true }, app.icon),
                   h("span", { class: "vd-start-menu-label" }, app.label),
-                  app.shortcut && h("span", { class: "vd-start-menu-shortcut" }, app.shortcut)
+                  app.shortcut && h("span", { class: "vd-start-menu-shortcut", "aria-hidden": true }, app.shortcut)
                 ]
               )
             );
@@ -120,7 +129,7 @@ export default defineComponent({
         }
 
         children.push(
-          h("div", { class: "vd-start-menu" }, menuItems)
+          h("div", { class: "vd-start-menu", role: "menu", "aria-label": "Applications" }, menuItems)
         );
       }
 

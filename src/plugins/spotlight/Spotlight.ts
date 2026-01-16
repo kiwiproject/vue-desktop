@@ -129,13 +129,16 @@ export default defineComponent({
               {
                 class: ["vd-spotlight-item", isSelected && "vd-selected"],
                 key: item.id,
+                id: `vd-spotlight-item-${item.id}`,
+                role: "option",
+                "aria-selected": isSelected,
                 onClick: () => handleItemClick(item),
                 onMouseenter: () => {
                   selectedIndex.value = currentIndex;
                 }
               },
               [
-                item.icon && h("span", { class: "vd-spotlight-icon" }, item.icon),
+                item.icon && h("span", { class: "vd-spotlight-icon", "aria-hidden": true }, item.icon),
                 h("div", { class: "vd-spotlight-item-content" }, [
                   h("div", { class: "vd-spotlight-item-label" }, item.label),
                   item.description &&
@@ -147,10 +150,17 @@ export default defineComponent({
         }
       }
 
+      const resultsId = "vd-spotlight-results";
+      const hasResults = results.value.length > 0;
+      const selectedItem = flatResults.value[selectedIndex.value];
+
       return h(
         "div",
         {
           class: "vd-spotlight-overlay",
+          role: "dialog",
+          "aria-modal": true,
+          "aria-label": "Search",
           onClick: handleOverlayClick
         },
         [
@@ -161,15 +171,25 @@ export default defineComponent({
               type: "text",
               placeholder: props.placeholder,
               value: query.value,
+              role: "combobox",
+              "aria-autocomplete": "list",
+              "aria-expanded": hasResults,
+              "aria-controls": resultsId,
+              "aria-activedescendant": selectedItem ? `vd-spotlight-item-${selectedItem.id}` : undefined,
               onInput: (e: Event) => {
                 query.value = (e.target as HTMLInputElement).value;
               }
             }),
-            results.value.length > 0 &&
-              h("div", { class: "vd-spotlight-results" }, resultElements),
+            hasResults &&
+              h("div", {
+                class: "vd-spotlight-results",
+                id: resultsId,
+                role: "listbox",
+                "aria-label": "Search results"
+              }, resultElements),
             results.value.length === 0 &&
               query.value.length > 0 &&
-              h("div", { class: "vd-spotlight-empty" }, "No results found")
+              h("div", { class: "vd-spotlight-empty", role: "status", "aria-live": "polite" }, "No results found")
           ])
         ]
       );

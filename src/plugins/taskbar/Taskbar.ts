@@ -27,13 +27,14 @@ export default defineComponent({
     };
 
     return () =>
-      h("div", { class: "vd-taskbar" }, [
+      h("div", { class: "vd-taskbar", role: "toolbar", "aria-label": "Window taskbar" }, [
         h(
           "div",
-          { class: "vd-taskbar-items" },
+          { class: "vd-taskbar-items", role: "group" },
           windows.value.map((win) => {
             const mode = desktop.getMode(win.id!);
             const isFocused = focusedId.value === win.id;
+            const isMinimized = mode === "minimized";
 
             return h(
               "button",
@@ -42,16 +43,18 @@ export default defineComponent({
                 class: [
                   "vd-taskbar-item",
                   isFocused && "vd-taskbar-item-focused",
-                  mode === "minimized" && "vd-taskbar-item-minimized"
+                  isMinimized && "vd-taskbar-item-minimized"
                 ],
                 onClick: () => handleClick(win.id!),
                 type: "button",
-                title: win.title
+                title: win.title,
+                "aria-pressed": isFocused,
+                "aria-label": `${win.title}${isMinimized ? " (minimized)" : isFocused ? " (focused)" : ""}`
               },
               [
                 win.icon
-                  ? h("span", { class: "vd-taskbar-icon" }, win.icon)
-                  : h("span", { class: "vd-taskbar-icon vd-taskbar-icon-default" }, "▢"),
+                  ? h("span", { class: "vd-taskbar-icon", "aria-hidden": true }, win.icon)
+                  : h("span", { class: "vd-taskbar-icon vd-taskbar-icon-default", "aria-hidden": true }, "▢"),
                 h("span", { class: "vd-taskbar-label" }, win.title)
               ]
             );

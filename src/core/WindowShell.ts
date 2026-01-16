@@ -147,6 +147,7 @@ export default defineComponent({
       return RESIZE_DIRECTIONS.map((dir) =>
         h("div", {
           class: `vd-resize-handle vd-resize-${dir}`,
+          "aria-hidden": true,
           onPointerdown: (e: PointerEvent) => startResize(dir, e),
           onPointermove: onPointerMove,
           onPointerup: onPointerUp
@@ -178,6 +179,9 @@ export default defineComponent({
             height: `${props.bounds.height}px`,
             zIndex: props.zIndex
           },
+          role: "dialog",
+          "aria-labelledby": `vd-window-title-${props.windowId}`,
+          "aria-modal": false,
           onMousedown: handleWindowMouseDown
         },
         [
@@ -192,7 +196,7 @@ export default defineComponent({
               onContextmenu: handleHeaderContextMenu
             },
             [
-              h("span", { class: "vd-window-title" }, props.title),
+              h("span", { class: "vd-window-title", id: `vd-window-title-${props.windowId}` }, props.title),
               h("div", { class: "vd-window-controls" }, [
                 minimizable() &&
                   h(
@@ -200,7 +204,8 @@ export default defineComponent({
                     {
                       class: "vd-window-btn vd-window-minimize",
                       onClick: handleMinimize,
-                      type: "button"
+                      type: "button",
+                      "aria-label": "Minimize window"
                     },
                     "\u2212"
                   ),
@@ -210,7 +215,8 @@ export default defineComponent({
                     {
                       class: "vd-window-btn vd-window-maximize",
                       onClick: handleMaximizeRestore,
-                      type: "button"
+                      type: "button",
+                      "aria-label": props.mode === "maximized" ? "Restore window" : "Maximize window"
                     },
                     props.mode === "maximized" ? "\u2752" : "\u25A1"
                   ),
@@ -220,7 +226,8 @@ export default defineComponent({
                     {
                       class: "vd-window-btn vd-window-close",
                       onClick: handleClose,
-                      type: "button"
+                      type: "button",
+                      "aria-label": "Close window"
                     },
                     "\u00D7"
                   )

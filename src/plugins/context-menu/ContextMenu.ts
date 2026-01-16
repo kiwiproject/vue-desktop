@@ -186,6 +186,11 @@ const ContextMenuItemComponent = defineComponent({
               props.isSelected && 'vd-selected',
               props.item.disabled && 'vd-context-menu-item-disabled'
             ],
+            role: 'menuitem',
+            'aria-disabled': props.item.disabled || undefined,
+            'aria-haspopup': hasChildren.value ? 'menu' : undefined,
+            'aria-expanded': hasChildren.value && props.showSubmenu ? true : undefined,
+            tabindex: -1,
             onMouseenter: handleMouseEnter,
             onMouseleave: handleMouseLeave,
             onClick: handleClick
@@ -217,6 +222,8 @@ const ContextMenuItemComponent = defineComponent({
             {
               ref: submenuRef,
               class: 'vd-context-menu vd-context-menu-submenu',
+              role: 'menu',
+              'aria-label': props.item.label,
               style: {
                 position: 'fixed',
                 left: `${props.submenuPosition.x}px`,
@@ -470,6 +477,8 @@ export default defineComponent({
         {
           ref: menuRef,
           class: 'vd-context-menu',
+          role: 'menu',
+          'aria-label': 'Context menu',
           style: {
             position: 'fixed',
             left: `${adjustedPosition.value.x}px`,

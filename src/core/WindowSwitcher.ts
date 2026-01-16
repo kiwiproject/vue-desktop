@@ -15,32 +15,44 @@ export default defineComponent({
 
       return h(
         "div",
-        { class: "vd-switcher-overlay" },
+        {
+          class: "vd-switcher-overlay",
+          role: "dialog",
+          "aria-modal": true,
+          "aria-label": "Window switcher"
+        },
         [
           h(
             "div",
-            { class: "vd-switcher-container" },
-            windows.value.map((win) =>
-              h(
+            {
+              class: "vd-switcher-container",
+              role: "listbox",
+              "aria-label": "Open windows"
+            },
+            windows.value.map((win) => {
+              const isSelected = selectedId.value === win.id;
+              return h(
                 "div",
                 {
                   key: win.id,
                   class: [
                     "vd-switcher-tile",
-                    selectedId.value === win.id && "vd-selected"
+                    isSelected && "vd-selected"
                   ],
+                  role: "option",
+                  "aria-selected": isSelected,
                   onClick: () => {
                     desktop.closeSwitcher(true);
                   }
                 },
                 [
                   win.icon
-                    ? h("div", { class: "vd-switcher-icon" }, win.icon)
-                    : h("div", { class: "vd-switcher-icon vd-switcher-icon-default" }, "\u25A1"),
+                    ? h("div", { class: "vd-switcher-icon", "aria-hidden": true }, win.icon)
+                    : h("div", { class: "vd-switcher-icon vd-switcher-icon-default", "aria-hidden": true }, "\u25A1"),
                   h("div", { class: "vd-switcher-title" }, win.title)
                 ]
-              )
-            )
+              );
+            })
           )
         ]
       );

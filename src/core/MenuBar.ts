@@ -131,6 +131,11 @@ const MenuDropdownItem = defineComponent({
               props.isSelected && 'vd-selected',
               props.item.disabled && 'vd-menu-dropdown-item-disabled'
             ],
+            role: 'menuitem',
+            'aria-disabled': props.item.disabled || undefined,
+            'aria-haspopup': hasChildren.value ? 'menu' : undefined,
+            'aria-expanded': hasChildren.value && props.showSubmenu ? true : undefined,
+            tabindex: -1,
             onMouseenter: handleMouseEnter,
             onMouseleave: handleMouseLeave,
             onClick: handleClick
@@ -160,7 +165,9 @@ const MenuDropdownItem = defineComponent({
           h(
             'div',
             {
-              class: 'vd-menu-dropdown vd-menu-dropdown-submenu'
+              class: 'vd-menu-dropdown vd-menu-dropdown-submenu',
+              role: 'menu',
+              'aria-label': props.item.label
             },
             submenuItems
           )
@@ -361,6 +368,10 @@ export default defineComponent({
               'vd-menu-bar-item',
               isOpen && 'vd-menu-bar-item-active'
             ],
+            role: 'menuitem',
+            'aria-haspopup': 'menu',
+            'aria-expanded': isOpen,
+            tabindex: 0,
             onClick: () => handleMenuClick(index),
             onMouseenter: () => handleMenuMouseEnter(index)
           },
@@ -368,7 +379,7 @@ export default defineComponent({
             menu.label,
             isOpen && items.length > 0 && h(
               'div',
-              { class: 'vd-menu-dropdown' },
+              { class: 'vd-menu-dropdown', role: 'menu', 'aria-label': menu.label },
               items.map((item, itemIndex) =>
                 h(MenuDropdownItem, {
                   key: item.id,
@@ -395,7 +406,7 @@ export default defineComponent({
         )
       })
 
-      return h('div', { class: 'vd-menu-bar' }, menuBarItems)
+      return h('div', { class: 'vd-menu-bar', role: 'menubar' }, menuBarItems)
     }
   }
 })

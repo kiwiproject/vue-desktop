@@ -132,6 +132,8 @@ export default defineComponent({
         "div",
         {
           class: "vd-window-host",
+          role: "region",
+          "aria-label": "Desktop window area",
           tabindex: -1,
           onKeydown: handleKeydown,
           onKeyup: handleKeyup,

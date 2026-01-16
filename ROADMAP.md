@@ -143,6 +143,16 @@ This file lists an incremental, commit-focused plan to implement the `vue-deskto
 21. perf/accessibility: polish and accessibility checks
     - Audit keyboard navigation and ARIA attributes for windows and controls.
 
+    Status: implemented (2026-01-15) — Comprehensive accessibility audit and fixes:
+    - WindowShell: Added `role="dialog"`, `aria-labelledby`, `aria-label` on control buttons, `aria-hidden` on resize handles
+    - WindowHost: Added `role="region"` with label
+    - Taskbar: Added `role="toolbar"`, `aria-pressed` states, descriptive `aria-label`
+    - MenuBar: Added `role="menubar"`, `role="menu"`, `role="menuitem"`, `aria-expanded`, `aria-haspopup`, `aria-disabled`
+    - StartMenu: Added `aria-expanded`, `aria-haspopup`, `role="menu"`, `role="menuitem"`
+    - Spotlight: Added combobox pattern with `role="combobox"`, `role="listbox"`, `role="option"`, `aria-selected`, `aria-activedescendant`
+    - ContextMenu: Added `role="menu"`, `role="menuitem"`, `aria-haspopup`, `aria-disabled`
+    - WindowSwitcher: Added `role="dialog"`, `role="listbox"`, `role="option"`, `aria-selected`
+
 22. feat: plugin marketplace / examples collection
     - Create separate `plugins/` examples and docs showing how to author plugins.
 
