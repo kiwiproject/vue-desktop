@@ -104,6 +104,8 @@ export class DesktopInstance {
   minimizeWindow(id: string) {
     const win = this.getWindow(id);
     if (!win) return false;
+    // Early exit if already minimized to prevent unnecessary reactivity
+    if (this._modes.value.get(id) === "minimized") return true;
     this._modes.value.set(id, "minimized");
     triggerRef(this._modes);
     this.emit("window:minimized", { windowId: id });
@@ -113,6 +115,8 @@ export class DesktopInstance {
   maximizeWindow(id: string) {
     const win = this.getWindow(id);
     if (!win) return false;
+    // Early exit if already maximized to prevent unnecessary reactivity
+    if (this._modes.value.get(id) === "maximized") return true;
     const currentMode = this.getMode(id);
     if (currentMode === "normal") {
       const currentBounds = this.getBounds(id);
@@ -129,6 +133,8 @@ export class DesktopInstance {
   restoreWindow(id: string) {
     const win = this.getWindow(id);
     if (!win) return false;
+    // Early exit if already normal to prevent unnecessary reactivity
+    if (this._modes.value.get(id) === "normal") return true;
     const restoreBounds = this._restoreBounds.get(id);
     if (restoreBounds) {
       this._bounds.value.set(id, restoreBounds);
