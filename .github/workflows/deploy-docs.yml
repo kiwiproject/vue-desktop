@@ -57,7 +57,7 @@ jobs:
           cp -r examples/demo/dist/* docs/.vitepress/dist/demo/
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: docs/.vitepress/dist
 
