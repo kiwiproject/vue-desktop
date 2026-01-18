@@ -39,4 +39,5 @@ jobs:
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Temporary: remove after first publish and switch to trusted publishing
         run: npx semantic-release
