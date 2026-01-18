@@ -6,6 +6,8 @@
 
 A lightweight Vue 3 + TypeScript desktop-style window manager library with a plugin-based architecture.
 
+**[Documentation](https://kiwiproject.github.io/vue-desktop/)** | **[Live Demo](https://kiwiproject.github.io/vue-desktop/demo/)**
+
 ## Features
 
 - **Draggable & Resizable Windows** — Move windows by title bar, resize from any edge or corner
