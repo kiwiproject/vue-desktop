@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/kiwiproject/vue-desktop/compare/v1.0.0...v1.0.1) (2026-01-18)
+
+
+### Bug Fixes
+
+* **release:** add NODE_AUTH_TOKEN for npm authentication ([#15](https://github.com/kiwiproject/vue-desktop/issues/15)) ([758102a](https://github.com/kiwiproject/vue-desktop/commit/758102aa9ea508a74190cbc9c5a221b842740a20))
+* **release:** temporarily use NPM_TOKEN for initial publish ([#14](https://github.com/kiwiproject/vue-desktop/issues/14)) ([a20925e](https://github.com/kiwiproject/vue-desktop/commit/a20925e53abe5100162a81d9c84b23d7f53ee817))
+* **release:** update husky command and normalize repository URL ([#13](https://github.com/kiwiproject/vue-desktop/issues/13)) ([c425805](https://github.com/kiwiproject/vue-desktop/commit/c4258057dee02fd695a82d680140fd4f4dbbe766))
+
 # 1.0.0 (2026-01-18)
 
 

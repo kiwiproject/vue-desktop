@@ -1,6 +1,6 @@
 {
   "name": "@kiwiproject/vue-desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "A Vue 3 + TypeScript desktop-style window manager library (plugin-based).",
   "main": "dist/index.umd.js",
