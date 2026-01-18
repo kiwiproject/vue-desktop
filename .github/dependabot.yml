@@ -1,0 +1,39 @@
+version: 2
+updates:
+  # JavaScript/TypeScript dependencies (npm/pnpm)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    groups:
+      # Group minor and patch updates together
+      production-dependencies:
+        patterns:
+          - "vue"
+          - "@vue/*"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "vue"
+          - "@vue/*"
+        update-types:
+          - "minor"
+          - "patch"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(ci)"
