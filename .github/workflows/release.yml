@@ -39,6 +39,4 @@ jobs:
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Used by semantic-release/npm
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # Used by setup-node's .npmrc
         run: npx semantic-release
