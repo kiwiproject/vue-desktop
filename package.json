@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/kiwiproject/vue-desktop#readme",
   "peerDependencies": {
-    "vue": "3.5.28"
+    "vue": "3.5.34"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
@@ -57,8 +57,8 @@
     "@tsconfig/node22": "22.0.5",
     "@vitejs/plugin-vue": "6.0.4",
     "@vitest/coverage-v8": "^4.0.17",
-    "@vue/test-utils": "2.4.6",
-    "@vue/tsconfig": "0.8.1",
+    "@vue/test-utils": "2.4.10",
+    "@vue/tsconfig": "0.9.1",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.7.0",
@@ -70,7 +70,7 @@
     "vite": "7.3.2",
     "vitepress": "^1.6.4",
     "vitest": "4.0.18",
-    "vue": "3.5.28",
+    "vue": "3.5.34",
     "vue-tsc": "3.2.4"
   },
   "publishConfig": {
