@@ -59,7 +59,7 @@
     "@vitest/coverage-v8": "^4.0.17",
     "@vue/test-utils": "2.4.11",
     "@vue/tsconfig": "0.9.1",
-    "eslint": "9.39.2",
+    "eslint": "10.8.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.10.0",
     "husky": "^9.1.7",
