@@ -57,7 +57,7 @@
     "@tsconfig/node22": "22.0.6",
     "@vitejs/plugin-vue": "6.0.8",
     "@vitest/coverage-v8": "^4.0.17",
-    "@vue/test-utils": "2.4.11",
+    "@vue/test-utils": "2.5.0",
     "@vue/tsconfig": "0.9.1",
     "eslint": "10.9.0",
     "eslint-config-prettier": "10.1.8",
