@@ -55,7 +55,7 @@
     "@semantic-release/npm": "13.2.0",
     "@semantic-release/release-notes-generator": "14.1.1",
     "@tsconfig/node22": "22.0.6",
-    "@vitejs/plugin-vue": "6.0.9",
+    "@vitejs/plugin-vue": "6.0.10",
     "@vitest/coverage-v8": "^4.0.17",
     "@vue/test-utils": "2.5.1",
     "@vue/tsconfig": "0.9.1",
@@ -63,7 +63,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.11.1",
     "husky": "^9.1.7",
-    "prettier": "3.9.9",
+    "prettier": "3.9.10",
     "semantic-release": "25.0.9",
     "typescript": "6.0.3",
     "typescript-eslint": "8.70.1",
@@ -71,7 +71,7 @@
     "vitepress": "^1.6.4",
     "vitest": "4.1.11",
     "vue": "3.5.43",
-    "vue-tsc": "3.3.12"
+    "vue-tsc": "3.3.13"
   },
   "publishConfig": {
     "access": "public"
